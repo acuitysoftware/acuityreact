@@ -3,7 +3,7 @@ import Eyebrow from "./Eyebrow";
 
 export default function Services({ data }) {
   return (
-    <section className="max-w-7xl mx-auto px-4 py-10">
+    <section className="w-full px-4 py-10">
       <Eyebrow>WHAT WE DO</Eyebrow>
       <h2 className="text-2xl font-bold mb-6 text-[#0e1b3d]">{data.title}</h2>
       <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">

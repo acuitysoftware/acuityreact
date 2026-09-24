@@ -3,7 +3,7 @@ import React from "react";
 export default function Testimonials({ data }) {
   return (
     <section className="text-white px-4 py-14 bg-[#0e1b3d]">
-      <div className="max-w-7xl mx-auto">
+      <div className="w-full">
         <h2 className="text-2xl font-bold mb-6">{data.title}</h2>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {data.items.map(([name, quote], i) => (

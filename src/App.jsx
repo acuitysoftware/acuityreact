@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -35,8 +35,23 @@ function loadConfig() {
 }
 
 function SiteLayout({ menu, company, children }) {
+  const initialPixelRatio = useRef(null);
+  const [zoomCompensation, setZoomCompensation] = useState(1);
+
+  useEffect(() => {
+    initialPixelRatio.current = window.devicePixelRatio || 1;
+
+    const matchInitialZoom = () => {
+      const currentPixelRatio = window.devicePixelRatio || 1;
+      setZoomCompensation(initialPixelRatio.current / currentPixelRatio);
+    };
+
+    window.addEventListener("resize", matchInitialZoom);
+    return () => window.removeEventListener("resize", matchInitialZoom);
+  }, []);
+
   return (
-    <div>
+    <div style={{ zoom: zoomCompensation }}>
       <TopBar company={company} />
       <Header menu={menu} company={company} />
       {children}

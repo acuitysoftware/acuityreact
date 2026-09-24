@@ -1,11 +1,25 @@
 import React, { useState, useMemo } from "react";
 import { FiSearch, FiCopy, FiTrash2, FiEdit2 } from "react-icons/fi";
 import { GoPlus } from "react-icons/go";
-import CMSModal from "./components/CMSModal";
 import { BsGripVertical } from "react-icons/bs";
+import CMSModal from "./components/CMSModal";
 
-// Mock API Delay helper
-const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+// Dnd-kit imports for smooth drag and drop
+import {
+  DndContext,
+  closestCenter,
+  PointerSensor,
+  KeyboardSensor,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
+import {
+  arrayMove,
+  SortableContext,
+  useSortable,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 
 const CmsSettings = () => {
   // State Management
@@ -23,9 +37,6 @@ const CmsSettings = () => {
   const [selectedIds, setSelectedIds] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editData, setEditData] = useState(null);
-  
-  // Drag and Drop State
-  const [draggedItem, setDraggedItem] = useState(null);
 
   // Filtered and Paginated Data
   const filteredData = useMemo(() => {
@@ -66,16 +77,14 @@ const CmsSettings = () => {
         item.id === id ? { ...item, status: !item.status } : item
       )
     );
-    // Add your API call for status change here
   };
 
   const handleDelete = async () => {
     if (selectedIds.length === 0) return alert("Please select a row to delete");
     if (!window.confirm("Are you sure you want to delete selected pages?")) return;
-    
+
     setData((prev) => prev.filter((item) => !selectedIds.includes(item.id)));
     setSelectedIds([]);
-    // Add your API call for delete here
   };
 
   const handleCopy = (text) => {
@@ -83,39 +92,39 @@ const CmsSettings = () => {
     alert("URL copied to clipboard");
   };
 
-  // Drag and Drop Reordering
-  const handleDragStart = (item) => {
-    setDraggedItem(item);
-  };
+  // Dnd-kit Sensors
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: { distance: 5 }, // Ensures clicks don't trigger drag
+    }),
+    useSensor(KeyboardSensor)
+  );
 
-  const handleDragOver = (e) => {
-    e.preventDefault();
-  };
+  // Dnd-kit Drag End Handler
+  const handleDragEnd = (event) => {
+    const { active, over } = event;
+    if (!over || active.id === over.id) return;
 
-  const handleDrop = async (targetItem) => {
-    if (!draggedItem || draggedItem.id === targetItem.id) return;
+    const oldIndex = data.findIndex((item) => item.id === active.id);
+    const newIndex = data.findIndex((item) => item.id === over.id);
 
-    const newData = [...data];
-    const draggedIndex = newData.findIndex((item) => item.id === draggedItem.id);
-    const targetIndex = newData.findIndex((item) => item.id === targetItem.id);
+    if (oldIndex !== -1 && newIndex !== -1) {
+      // Use arrayMove for smooth local state update
+      const newData = arrayMove(data, oldIndex, newIndex);
+      
+      // Re-calculate ranks globally
+      const reRankedData = newData.map((item, index) => ({
+        ...item,
+        rank: index + 1,
+      }));
 
-    // Remove dragged item and insert at new position
-    newData.splice(draggedIndex, 1);
-    newData.splice(targetIndex, 0, draggedItem);
+      setData(reRankedData);
 
-    // Re-rank all items
-    const reRankedData = newData.map((item, index) => ({
-      ...item,
-      rank: index + 1,
-    }));
-
-    setData(reRankedData);
-    setDraggedItem(null);
-
-    // Find the moved item to send to API
-    const updatedItem = reRankedData.find((i) => i.id === draggedItem.id);
-    console.log("Sending new rank to API:", updatedItem);
-    // Add your API call for rank update here: mutationRankChange.mutate({ id: updatedItem.id, rank: updatedItem.rank })
+      // Find the moved item to send to API
+      const updatedItem = reRankedData.find((i) => i.id === active.id);
+      console.log("Sending new rank to API:", updatedItem);
+      // Add your API call for rank update here
+    }
   };
 
   const handleEdit = (item) => {
@@ -130,14 +139,12 @@ const CmsSettings = () => {
 
   const handleModalSubmit = (formData) => {
     if (editData) {
-      // Update Logic
       setData((prev) =>
         prev.map((item) =>
           item.id === editData.id ? { ...item, ...formData } : item
         )
       );
     } else {
-      // Add Logic
       const newItem = {
         id: Date.now(),
         ...formData,
@@ -209,74 +216,37 @@ const CmsSettings = () => {
                 <th className="p-4 font-semibold text-gray-600 text-sm text-right">Actions</th>
               </tr>
             </thead>
-            <tbody>
-              {currentTableData.map((item) => (
-                <tr
-                  key={item.id}
-                  className={`border-b border-gray-100 hover:bg-gray-50 transition-colors ${
-                    draggedItem?.id === item.id ? "opacity-50" : ""
-                  }`}
-                >
-                  <td className="p-4">
-                    <input
-                      type="checkbox"
-                      checked={selectedIds.includes(item.id)}
-                      onChange={() => handleSelectRow(item.id)}
-                      className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+            <DndContext
+              sensors={sensors}
+              collisionDetection={closestCenter}
+              onDragEnd={handleDragEnd}
+            >
+              <SortableContext
+                items={currentTableData.map((item) => item.id)}
+                strategy={verticalListSortingStrategy}
+              >
+                <tbody>
+                  {currentTableData.map((item) => (
+                    <SortableRow
+                      key={item.id}
+                      item={item}
+                      selectedIds={selectedIds}
+                      handleSelectRow={handleSelectRow}
+                      handleStatusChange={handleStatusChange}
+                      handleCopy={handleCopy}
+                      handleEdit={handleEdit}
                     />
-                  </td>
-                  <td className="p-4">
-                    <div
-                      draggable
-                      onDragStart={() => handleDragStart(item)}
-                      onDragOver={handleDragOver}
-                      onDrop={() => handleDrop(item)}
-                      className="cursor-move text-gray-400 hover:text-gray-600"
-                    >
-                      <BsGripVertical size={20} />
-                    </div>
-                  </td>
-                  <td className="p-4 text-gray-700 text-sm">{item.rank}</td>
-                  <td className="p-4 text-gray-700 text-sm font-medium">{item.page_title}</td>
-                  <td className="p-4 text-gray-500 text-sm">
-                    <div className="flex items-center gap-2">
-                      <span>{`/${item.page_url}`}</span>
-                      <FiCopy
-                        className="cursor-pointer text-gray-400 hover:text-blue-500 transition-colors"
-                        onClick={() => handleCopy(item.page_url)}
-                      />
-                    </div>
-                  </td>
-                  <td className="p-4">
-                    <label className="inline-flex relative items-center cursor-pointer">
-                      <input
-                        type="checkbox"
-                        value=""
-                        className="sr-only peer"
-                        checked={item.status}
-                        onChange={() => handleStatusChange(item.id)}
-                      />
-                      <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
-                    </label>
-                  </td>
-                  <td className="p-4 text-right">
-                    <button
-                      onClick={() => handleEdit(item)}
-                      className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors"
-                    >
-                      <FiEdit2 size={14} /> Edit
-                    </button>
-                  </td>
-                </tr>
-              ))}
-              {currentTableData.length === 0 && (
-                <tr>
-                  <td colSpan="7" className="p-4 text-center text-gray-500">
-                    No data found
-                  </td>
-                </tr>
-              )}
-            </tbody>
+                  ))}
+                  {currentTableData.length === 0 && (
+                    <tr>
+                      <td colSpan="7" className="p-4 text-center text-gray-500">
+                        No data found
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </SortableContext>
+            </DndContext>
           </table>
         </div>
 
@@ -330,6 +300,94 @@ const CmsSettings = () => {
         />
       )}
     </div>
+  );
+};
+
+// =============================================
+// Sortable Row Component
+// =============================================
+const SortableRow = ({
+  item,
+  selectedIds,
+  handleSelectRow,
+  handleStatusChange,
+  handleCopy,
+  handleEdit,
+}) => {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id: item.id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    background: isDragging ? "#f0f9ff" : "white", // Light blue tint while dragging
+    zIndex: isDragging ? 1000 : "auto",
+  };
+
+  return (
+    <tr
+      ref={setNodeRef}
+      style={style}
+      className={`border-b border-gray-100 hover:bg-gray-50 transition-colors ${isDragging ? "shadow-md" : ""}`}
+    >
+      <td className="p-4">
+        <input
+          type="checkbox"
+          checked={selectedIds.includes(item.id)}
+          onChange={() => handleSelectRow(item.id)}
+          className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+        />
+      </td>
+      
+      {/* Drag Handle - listeners and attributes applied here */}
+      <td className="p-4">
+        <button
+          className="cursor-move text-gray-400 hover:text-gray-600 touch-none flex items-center justify-center"
+          {...attributes}
+          {...listeners}
+        >
+          <BsGripVertical size={20} />
+        </button>
+      </td>
+
+      <td className="p-4 text-gray-700 text-sm">{item.rank}</td>
+      <td className="p-4 text-gray-700 text-sm font-medium">{item.page_title}</td>
+      <td className="p-4 text-gray-500 text-sm">
+        <div className="flex items-center gap-2">
+          <span>{`/${item.page_url}`}</span>
+          <FiCopy
+            className="cursor-pointer text-gray-400 hover:text-blue-500 transition-colors"
+            onClick={() => handleCopy(item.page_url)}
+          />
+        </div>
+      </td>
+      <td className="p-4">
+        <label className="inline-flex relative items-center cursor-pointer">
+          <input
+            type="checkbox"
+            value=""
+            className="sr-only peer"
+            checked={item.status}
+            onChange={() => handleStatusChange(item.id)}
+          />
+          <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+        </label>
+      </td>
+      <td className="p-4 text-right">
+        <button
+          onClick={() => handleEdit(item)}
+          className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors"
+        >
+          <FiEdit2 size={14} /> Edit
+        </button>
+      </td>
+    </tr>
   );
 };
 

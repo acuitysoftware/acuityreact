@@ -3,7 +3,7 @@ import Eyebrow from "./Eyebrow";
 
 export default function TechStack({ data }) {
   return (
-    <section className="max-w-7xl mx-auto px-4 py-10">
+    <section className="w-full px-4 py-10">
       <Eyebrow>OUR TECHNOLOGIES</Eyebrow>
       <h2 className="text-2xl font-bold mb-6 text-[#0e1b3d]">{data.title}</h2>
       <div className="flex flex-wrap gap-3">
