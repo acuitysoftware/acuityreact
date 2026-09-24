@@ -1,4 +1,5 @@
 import React from "react";
+import { FiPhone, FiMail, FiMapPin, FiSend } from "react-icons/fi";
 
 export default function Footer({ company, menu }) {
   return (
@@ -20,15 +21,17 @@ export default function Footer({ company, menu }) {
         </div>
         <div>
           <div className="font-bold mb-2">Contact Info</div>
-          <div className="text-slate-400 py-0.5">📞 {company.phone}</div>
-          <div className="text-slate-400 py-0.5">✉ {company.email}</div>
-          <div className="text-slate-400 py-0.5">📍 {company.address}</div>
+          <div className="text-slate-400 py-0.5 flex items-center gap-2"><FiPhone /> {company.phone}</div>
+          <div className="text-slate-400 py-0.5 flex items-center gap-2"><FiMail /> {company.email}</div>
+          <div className="text-slate-400 py-0.5 flex items-center gap-2"><FiMapPin /> {company.address}</div>
         </div>
         <div>
           <div className="font-bold mb-2">Newsletter</div>
           <div className="flex gap-1">
             <input className="rounded px-2 py-1 text-slate-800 text-xs w-full" placeholder="Your email" />
-            <button className="px-3 py-1 rounded text-xs font-semibold bg-orange-500 text-white">Join</button>
+            <button className="px-3 py-1 rounded text-xs font-semibold bg-orange-500 text-white flex items-center gap-1">
+              <FiSend /> Join
+            </button>
           </div>
         </div>
       </div>

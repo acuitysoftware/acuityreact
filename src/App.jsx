@@ -1,5 +1,7 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import TopBar from "./components/TopBar";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -11,6 +13,8 @@ import PortfolioPage from "./pages/Portfolio";
 import BlogPage from "./pages/Blog";
 import ContactPage from "./pages/Contact";
 import AdminLayout from "./admin/layout/AdminLayout";
+import Login from "./admin/auth/Login";
+import Register from "./admin/auth/Register";
 import SiteSettings from "./admin/pages/SiteSettings";
 import CmsSettings from "./admin/pages/CmsSettings";
 import HomeSettings from "./admin/pages/HomeSettings";
@@ -58,6 +62,7 @@ export default function App() {
 
   return (
     <BrowserRouter>
+      <ToastContainer position="top-right" autoClose={3000} newestOnTop />
       <Routes>
         <Route path="/" element={<SiteLayout menu={menu} company={company}><Home sections={sections} /></SiteLayout>} />
         <Route path="/about" element={<SiteLayout menu={menu} company={company}><AboutPage company={company} /></SiteLayout>} />
@@ -66,6 +71,10 @@ export default function App() {
         <Route path="/portfolio" element={<SiteLayout menu={menu} company={company}><PortfolioPage /></SiteLayout>} />
         <Route path="/blog" element={<SiteLayout menu={menu} company={company}><BlogPage /></SiteLayout>} />
         <Route path="/contact" element={<SiteLayout menu={menu} company={company}><ContactPage company={company} /></SiteLayout>} />
+
+        {/* Auth pages — standalone, no sidebar/header */}
+        <Route path="/admin/login" element={<Login />} />
+        <Route path="/admin/register" element={<Register />} />
 
         {/* Admin panel: header + sidebar are rendered once by AdminLayout,
             and each tab renders inside its <Outlet />. Props are passed

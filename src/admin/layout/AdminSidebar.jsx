@@ -1,14 +1,15 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { FiSettings, FiGrid, FiHome, FiMenu } from "react-icons/fi";
 
 // Left navigation for the admin panel. 4 top-level tabs; "Menu Settings"
 // expands to its own Header Management / Footer Management sub-links.
 // `onNavigate` is called on link click so AdminLayout can close the
 // off-canvas sidebar on mobile/tablet after a selection.
 const NAV_ITEMS = [
-  { to: "/admin/site-settings", label: "Site Settings", icon: "⚙️" },
-  { to: "/admin/cms-settings", label: "CMS Settings", icon: "🧩" },
-  { to: "/admin/home-settings", label: "Home Settings", icon: "🏠" },
+  { to: "/admin/site-settings", label: "Site Settings", Icon: FiSettings },
+  { to: "/admin/cms-settings", label: "CMS Settings", Icon: FiGrid },
+  { to: "/admin/home-settings", label: "Home Settings", Icon: FiHome },
 ];
 
 const MENU_SETTINGS_CHILDREN = [
@@ -27,17 +28,17 @@ const subLinkClass = ({ isActive }) =>
 export default function AdminSidebar({ onNavigate }) {
   return (
     <aside className="w-64 max-w-[80vw] bg-[#0e1b3d] text-white flex flex-col shrink-0 h-[calc(100vh-4rem)] lg:h-full overflow-y-auto py-6 px-3 gap-1 shadow-xl lg:shadow-none">
-      {NAV_ITEMS.map((item) => (
-        <NavLink key={item.to} to={item.to} className={linkClass} onClick={onNavigate}>
-          <span>{item.icon}</span>
-          {item.label}
+      {NAV_ITEMS.map(({ to, label, Icon }) => (
+        <NavLink key={to} to={to} className={linkClass} onClick={onNavigate}>
+          <Icon className="text-base" />
+          {label}
         </NavLink>
       ))}
 
       {/* Menu Settings — parent tab + always-expanded sub-tabs */}
       <div className="mt-1">
         <div className="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium text-slate-300">
-          <span>📋</span>
+          <FiMenu className="text-base" />
           Menu Settings
         </div>
         <div className="pl-6 flex flex-col gap-1">

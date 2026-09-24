@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { HiMenuAlt3, HiX } from "react-icons/hi";
 
 export default function Header({ menu, company }) {
   const [open, setOpen] = useState(false);
@@ -37,7 +38,9 @@ export default function Header({ menu, company }) {
           {company.cta} →
         </a>
 
-        <button className="lg:hidden text-2xl" onClick={() => setOpen(!open)}>☰</button>
+        <button className="lg:hidden text-2xl" onClick={() => setOpen(!open)} aria-label="Toggle menu">
+          {open ? <HiX /> : <HiMenuAlt3 />}
+        </button>
       </div>
 
       {open && (
