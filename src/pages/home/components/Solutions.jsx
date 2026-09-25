@@ -23,7 +23,7 @@ export default function Solutions() {
   const { eyebrow, title, viewAllLink, items } = SOLUTIONS_DATA;
 
   return (
-    <section className="w-full bg-surface px-[10px] py-8 font-body">
+    <section className="w-full bg-surface px-10 py-8 font-body">
       <div className="w-full">
         {/* Header row */}
         <div className="flex items-end justify-between mb-6">

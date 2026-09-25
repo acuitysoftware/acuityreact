@@ -19,7 +19,7 @@ export default function Footer({ company, menu }) {
   ];
 
   return (
-    <footer className="bg-primary text-white font-body">
+    <footer className="bg-body text-white font-body">
       {/* ── Main grid ─────────────────────────────────────────── */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-8 text-sm">
         {/* Brand */}

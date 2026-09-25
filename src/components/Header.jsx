@@ -1,37 +1,30 @@
 import React, { useState } from "react";
 import { HiMenuAlt3, HiX } from "react-icons/hi";
-import acuityLogo from "../assets/acuity-logo.png";
 
 export default function Header({ menu, company }) {
   const [open, setOpen] = useState(false);
 
   return (
     <header
-      className="sticky top-0 z-40 w-full font-body shadow-md"
-      style={{ backgroundColor: "#0B1730" }}
+      className="sticky top-0 z-40 w-full font-body shadow-md px-10"
+      style={{ backgroundColor: "black" }}
     >
       {/* ── Main bar ───────────────────────────────────────── */}
       <div
-        className="w-full px-[10px] flex items-center justify-start gap-3"
+        className="relative w-full px-[10px] flex items-center justify-between gap-3"
         style={{ height: "68px" }}
       >
         {/* ── Logo (left) ─────────────────────────────────── */}
         <a href="/" className="flex items-center gap-2 shrink-0">
           <img
-            src={acuityLogo}
+            src="/assets/images/white_logo.png"
             alt="Acuity logo"
-            className="h-7 w-auto object-contain"
+            className="h-14 w-auto object-contain"
           />
-          <span
-            className="font-heading font-semibold text-sm leading-tight hidden md:block whitespace-nowrap"
-            style={{ color: "#F4F8FC" }}
-          >
-            {company.name}
-          </span>
         </a>
 
         {/* ── Desktop Nav (centre) ────────────────────────── */}
-        <nav className="hidden lg:flex items-center gap-4 ml-3">
+        <nav className="hidden lg:flex absolute left-1/2 -translate-x-1/2 items-center gap-4">
           {menu.filter((m) => m.enabled).map((m) => (
             <div key={m.id} className="relative group">
               <a

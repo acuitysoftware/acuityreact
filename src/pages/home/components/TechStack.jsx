@@ -27,7 +27,7 @@ export default function TechStack() {
   const { eyebrow, title, viewAllLink, items } = TECHSTACK_DATA;
 
   return (
-    <section className="w-full bg-white px-[10px] py-8 font-body">
+    <section className="w-full bg-white px-10 py-8 font-body">
       <div className="w-full">
         {/* Header row */}
         <div className="flex items-end justify-between mb-6">

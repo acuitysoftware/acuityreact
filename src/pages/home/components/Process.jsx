@@ -23,7 +23,7 @@ export default function Process() {
   const { eyebrow, title, steps } = PROCESS_DATA;
 
   return (
-    <section className="w-full bg-white px-[10px] py-14 font-body">
+    <section className="w-full bg-white px-10 py-14 font-body">
       <div className="w-full">
         <div className="mb-8">
           <Eyebrow>{eyebrow}</Eyebrow>

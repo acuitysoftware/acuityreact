@@ -1,125 +1,127 @@
 import React from "react";
-import { FiPhone, FiMail, FiMapPin, FiCheckCircle } from "react-icons/fi";
-import { MdRocketLaunch } from "react-icons/md";
+import Eyebrow from "./Eyebrow";
+import { FiPhone, FiMail } from "react-icons/fi";
+import {
+  MdFreeCancellation,
+  MdDesignServices,
+  MdSchedule,
+  MdSupportAgent,
+} from "react-icons/md";
 
 // ─── Section data (edit here to update the CTA section) ──────────────────────
 const CTA_DATA = {
+  eyebrow: "LET'S WORK TOGETHER",
   title: "Let's Build Something Great Together",
   subtitle:
     "Have a project in mind? Get in touch and our experts will help you find the right solution.",
-  ctaLink: "/contact",
-  ctaLabel: "Free Project Consultation →",
   phone: "6290915550",
   email: "paul@acuitysoftwareservices.com",
-  address: "Kolkata, India",
   highlights: [
-    "Free Consultation",
-    "Quick Turnaround",
-    "Ongoing Support",
-    "Transparent Pricing",
+    { label: "Free Consultation", icon: MdFreeCancellation },
+    { label: "Custom Solutions", icon: MdDesignServices },
+    { label: "On-Time Delivery", icon: MdSchedule },
+    { label: "Ongoing Support", icon: MdSupportAgent },
   ],
 };
 
 // ─── Component ────────────────────────────────────────────────────────────────
 export default function CTA() {
-  const { title, subtitle, ctaLink, ctaLabel, phone, email, address, highlights } = CTA_DATA;
+  const { eyebrow, title, subtitle, phone, email, highlights } = CTA_DATA;
 
   return (
-    <section className="w-full bg-white px-[10px] py-16 font-body">
-      <div className="w-full">
-        {/* Top hero-style banner */}
-        <div className="relative overflow-hidden rounded-3xl bg-primary px-6 py-12 sm:px-12 sm:py-16 mb-0 text-white">
-          {/* Decorative glow */}
-          <div
-            className="pointer-events-none absolute -top-10 -right-10 w-72 h-72 rounded-full opacity-20"
-            style={{ background: "radial-gradient(circle, #01A9FB 0%, transparent 70%)" }}
-          />
-          <div
-            className="pointer-events-none absolute -bottom-10 -left-10 w-64 h-64 rounded-full opacity-10"
-            style={{ background: "radial-gradient(circle, #FD6301 0%, transparent 70%)" }}
-          />
+    <section className="w-full bg-white px-10 py-14 font-body">
+      <div className="w-full grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
+        
+        {/* ── Left: copy & contact info ── */}
+        <div>
+          <Eyebrow>{eyebrow}</Eyebrow>
+          
+          <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary mb-4 leading-tight">
+            {title}
+          </h2>
+          
+          <p className="text-body/60 leading-relaxed mb-8 text-base max-w-lg">
+            {subtitle}
+          </p>
 
-          <div className="relative z-10 grid lg:grid-cols-2 gap-10 items-center">
-            {/* Left: copy */}
-            <div>
-              <div className="flex items-center gap-2 mb-4">
-                <MdRocketLaunch className="text-accent text-xl" />
-                <span className="text-xs font-semibold text-accent tracking-widest uppercase">
-                  Start Your Project
-                </span>
-              </div>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold text-white mb-4 leading-tight">
-                {title}
-              </h2>
-              <p className="text-white/70 leading-relaxed mb-6 text-sm md:text-base max-w-lg">
-                {subtitle}
-              </p>
-
-              {/* Highlight chips */}
-              <div className="flex flex-wrap gap-2 mb-8">
-                {highlights.map((h, i) => (
-                  <div
-                    key={i}
-                    className="flex items-center gap-1.5 text-xs font-medium text-white/80 border border-white/15 rounded-full px-3 py-1.5 bg-white/8"
-                  >
-                    <FiCheckCircle className="text-secondary text-sm shrink-0" />
-                    {h}
-                  </div>
-                ))}
-              </div>
-
-              <a
-                href={ctaLink}
-                className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full font-semibold text-white bg-accent hover:bg-accent/90 transition-colors shadow-xl hover:shadow-2xl hover:scale-105 active:scale-95 text-sm"
+          {/* Highlight blocks - 2x2 grid with React Icons */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10 max-w-lg">
+            {highlights.map(({ label, icon: Icon }, i) => (
+              <div
+                key={i}
+                className="flex items-center gap-3 text-sm font-semibold text-primary bg-surface border border-primary/10 rounded-xl px-4 py-3"
               >
-                {ctaLabel}
-              </a>
-            </div>
-
-            {/* Right: contact details */}
-            <div className="bg-white/10 backdrop-blur-sm rounded-2xl border border-white/15 p-6 flex flex-col gap-4">
-              <div className="font-heading font-semibold text-white text-lg mb-1">
-                Contact Info
+                <div className="w-9 h-9 rounded-full bg-accent/10 flex items-center justify-center text-accent shrink-0">
+                  <Icon className="text-lg" />
+                </div>
+                {label}
               </div>
+            ))}
+          </div>
 
-              <a
-                href={`tel:${phone}`}
-                className="flex items-center gap-3 text-white/80 hover:text-secondary transition-colors group"
-              >
-                <div className="w-10 h-10 rounded-xl bg-secondary/20 flex items-center justify-center group-hover:bg-secondary/30 transition-colors shrink-0">
-                  <FiPhone className="text-secondary" />
-                </div>
-                <div>
-                  <div className="text-[11px] text-white/50 leading-none mb-0.5">Phone</div>
-                  <div className="text-sm font-semibold">{phone}</div>
-                </div>
-              </a>
-
-              <a
-                href={`mailto:${email}`}
-                className="flex items-center gap-3 text-white/80 hover:text-secondary transition-colors group"
-              >
-                <div className="w-10 h-10 rounded-xl bg-secondary/20 flex items-center justify-center group-hover:bg-secondary/30 transition-colors shrink-0">
-                  <FiMail className="text-secondary" />
-                </div>
-                <div>
-                  <div className="text-[11px] text-white/50 leading-none mb-0.5">Email</div>
-                  <div className="text-sm font-semibold break-all">{email}</div>
-                </div>
-              </a>
-
-              <div className="flex items-center gap-3 text-white/80">
-                <div className="w-10 h-10 rounded-xl bg-secondary/20 flex items-center justify-center shrink-0">
-                  <FiMapPin className="text-secondary" />
-                </div>
-                <div>
-                  <div className="text-[11px] text-white/50 leading-none mb-0.5">Location</div>
-                  <div className="text-sm font-semibold">{address}</div>
-                </div>
+          {/* Contact Info */}
+          <div className="flex flex-col sm:flex-row gap-6">
+            <a href={`tel:${phone}`} className="flex items-center gap-3 text-primary hover:text-accent transition-colors group">
+              <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center group-hover:bg-accent/20 transition-colors shrink-0">
+                <FiPhone className="text-accent" />
               </div>
-            </div>
+              <div>
+                <div className="text-[11px] text-body/50 leading-none mb-0.5">Phone</div>
+                <div className="text-sm font-semibold">{phone}</div>
+              </div>
+            </a>
+
+            <a href={`mailto:${email}`} className="flex items-center gap-3 text-primary hover:text-accent transition-colors group">
+              <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center group-hover:bg-accent/20 transition-colors shrink-0">
+                <FiMail className="text-accent" />
+              </div>
+              <div>
+                <div className="text-[11px] text-body/50 leading-none mb-0.5">Email</div>
+                <div className="text-sm font-semibold break-all">{email}</div>
+              </div>
+            </a>
           </div>
         </div>
+
+        {/* ── Right: Form Card ── */}
+        <div className="bg-surface border border-primary/10 rounded-2xl p-6 md:p-8 shadow-sm">
+          <h3 className="text-primary font-heading font-bold text-xl mb-5">Get a Free Quote</h3>
+          
+          <form className="flex flex-col gap-4" onSubmit={(e) => e.preventDefault()}>
+            <input 
+              type="text" 
+              placeholder="Your Name" 
+              className="w-full px-4 py-3 rounded-lg border border-primary/10 bg-white text-primary text-sm placeholder:text-body/40 focus:outline-none focus:border-accent transition-colors"
+            />
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <input 
+                type="email" 
+                placeholder="Your Email" 
+                className="w-full px-4 py-3 rounded-lg border border-primary/10 bg-white text-primary text-sm placeholder:text-body/40 focus:outline-none focus:border-accent transition-colors"
+              />
+              <input 
+                type="tel" 
+                placeholder="Phone Number" 
+                className="w-full px-4 py-3 rounded-lg border border-primary/10 bg-white text-primary text-sm placeholder:text-body/40 focus:outline-none focus:border-accent transition-colors"
+              />
+            </div>
+            
+            <textarea 
+              placeholder="Tell us about your project" 
+              rows="4"
+              className="w-full px-4 py-3 rounded-lg border border-primary/10 bg-white text-primary text-sm placeholder:text-body/40 focus:outline-none focus:border-accent transition-colors resize-none"
+            ></textarea>
+            
+            <button 
+              type="submit" 
+              className="w-full px-8 py-3.5 rounded-lg font-semibold text-white bg-accent hover:bg-accent/90 transition-colors shadow-md text-sm mt-2"
+            >
+              Get a Free Quote →
+            </button>
+          </form>
+        </div>
+
       </div>
     </section>
   );

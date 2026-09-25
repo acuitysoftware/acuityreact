@@ -20,7 +20,7 @@ export default function Portfolio() {
   const { eyebrow, title, viewAllLink, items } = PORTFOLIO_DATA;
 
   return (
-    <section className="w-full bg-surface px-[10px] py-8 font-body">
+    <section className="w-full bg-surface px-10 py-8 font-body">
       <div className="w-full">
         {/* Header row */}
         <div className="flex items-end justify-between mb-8">
@@ -47,25 +47,15 @@ export default function Portfolio() {
             >
               <div className="relative overflow-hidden">
                 <img
-                  src="/homepage-placeholder.svg"
+                  src="/assets/images/feature-project-sample.jpg"
                   alt={label}
                   className="h-48 w-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                {/* Category badge */}
-                <span className="absolute top-3 left-3 text-[10px] font-semibold bg-accent text-white px-2.5 py-1 rounded-full shadow">
-                  {category}
-                </span>
               </div>
               <div className="p-4 flex items-center justify-between">
                 <span className="text-base font-heading font-semibold text-primary group-hover:text-secondary transition-colors leading-snug">
                   {label}
                 </span>
-                <a
-                  href={viewAllLink}
-                  className="text-sm font-semibold text-accent hover:underline whitespace-nowrap ml-2"
-                >
-                  View →
-                </a>
               </div>
             </div>
           ))}

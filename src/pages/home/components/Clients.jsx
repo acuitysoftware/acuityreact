@@ -67,7 +67,7 @@ export default function Clients() {
   const { eyebrow, title, viewAllLink, items } = CLIENTS_DATA;
 
   return (
-    <section className="w-full bg-surface px-[10px] py-8 font-body">
+    <section className="w-full bg-surface px-10 py-8 font-body">
       <div className="w-full">
         <div className="flex items-end justify-between mb-5">
           <div>
