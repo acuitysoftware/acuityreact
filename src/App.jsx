@@ -2,16 +2,16 @@ import React, { useEffect, useRef, useState, useCallback } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import TopBar from "./components/TopBar";
+
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import Home from "./pages/Home";
-import AboutPage from "./pages/About";
-import ServicesPage from "./pages/Services";
-import IndustriesPage from "./pages/Industries";
-import PortfolioPage from "./pages/Portfolio";
-import BlogPage from "./pages/Blog";
-import ContactPage from "./pages/Contact";
+import Home from "./pages/home/Home";
+import AboutPage from "./pages/about/About";
+import ServicesPage from "./pages/services/Services";
+import IndustriesPage from "./pages/industries/Industries";
+import PortfolioPage from "./pages/portfolio/Portfolio";
+import BlogPage from "./pages/blog/Blog";
+import ContactPage from "./pages/contact/Contact";
 import AdminLayout from "./admin/layout/AdminLayout";
 import Login from "./admin/auth/Login";
 import Register from "./admin/auth/Register";
@@ -52,7 +52,6 @@ function SiteLayout({ menu, company, children }) {
 
   return (
     <div style={{ zoom: zoomCompensation }}>
-      <TopBar company={company} />
       <Header menu={menu} company={company} />
       {children}
       <Footer company={company} menu={menu} />
