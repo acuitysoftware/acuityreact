@@ -1,17 +1,39 @@
 import React from "react";
-import SectionRenderer from "./components/SectionRenderer";
+import Hero from "./components/Hero";
+import Clients from "./components/Clients";
+import Services from "./components/Services";
+import Solutions from "./components/Solutions";
+import About from "./components/About";
+import TechStack from "./components/TechStack";
+import Industries from "./components/Industries";
+import Process from "./components/Process";
+import Portfolio from "./components/Portfolio";
+import Testimonials from "./components/Testimonials";
+import CTA from "./components/CTA";
 
-// The homepage is just an ordered list of enabled CMS blocks.
-// Reordering, enabling/disabling and editing all happen in the admin
-// dashboard (see pages/Admin.jsx) and flow through the `sections` prop.
+/**
+ * Home page — renders all sections in order.
+ * Each section now owns its own data internally.
+ * The `sections` prop from the admin CMS is kept for backward-compat
+ * (Hero is still driven by it) but the other sections are self-contained.
+ */
 export default function Home({ sections }) {
+  // Hero still reads from the CMS/admin for its title / subtitle
+  const heroSection = sections?.find((s) => s.type === "Hero" && s.enabled);
+
   return (
-    <div>
-      {sections
-        .filter((s) => s.enabled)
-        .map((s) => (
-          <SectionRenderer key={s.id} section={s} />
-        ))}
-    </div>
+    <main>
+      {heroSection && <Hero data={heroSection} />}
+      <Clients />
+      <Services />
+      <Solutions />
+      <About />
+      <TechStack />
+      <Industries />
+      <Process />
+      <Portfolio />
+      <Testimonials />
+      <CTA />
+    </main>
   );
 }

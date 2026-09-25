@@ -4,7 +4,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* â”€â”€ Global design tokens â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 @layer base {
   :root {
     --color-primary:   #062B6E;
