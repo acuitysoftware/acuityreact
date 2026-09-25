@@ -11,7 +11,7 @@ export default function Header({ menu, company }) {
     >
       {/* ── Main bar ───────────────────────────────────────── */}
       <div
-        className="relative w-full px-[10px] flex items-center justify-between gap-3"
+        className="relative w-full flex items-center justify-between gap-3"
         style={{ height: "68px" }}
       >
         {/* ── Logo (left) ─────────────────────────────────── */}

@@ -21,7 +21,7 @@ export default function Footer({ company, menu }) {
   return (
     <footer className="bg-body text-white font-body">
       {/* ── Main grid ─────────────────────────────────────────── */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-8 text-sm">
+      <div className="w-full px-10 py-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-8 text-sm">
         {/* Brand */}
         <div>
           {/* Logo */}
@@ -126,7 +126,7 @@ export default function Footer({ company, menu }) {
 
       {/* ── Bottom bar ────────────────────────────────────────── */}
       <div className="border-t border-white/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+        <div className="w-full px-10 py-4 flex flex-col sm:flex-row items-center justify-between gap-2">
           <div className="text-white/40 text-xs">
             © {new Date().getFullYear()} {company.name}. All Rights Reserved.
           </div>
