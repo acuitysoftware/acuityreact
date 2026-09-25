@@ -16,6 +16,12 @@
     --header-height: 68px;
   }
 
+  @media (min-width: 1536px) {
+    :root {
+      --header-height: 88px;
+    }
+  }
+
   body {
     /* clip stops horizontal scroll without creating a scroll container,
        so position:sticky on the header keeps working */
