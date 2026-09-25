@@ -23,37 +23,37 @@ export default function Industries() {
   const { eyebrow, title, viewAllLink, items } = INDUSTRIES_DATA;
 
   return (
-    <section className="w-full bg-surface px-4 py-14 font-body">
+    <section className="w-full bg-surface px-4 sm:px-6 lg:px-8 py-8 font-body">
       <div className="max-w-7xl mx-auto">
         {/* Header row */}
-        <div className="flex items-end justify-between mb-8">
+        <div className="flex items-end justify-between mb-6">
           <div>
             <Eyebrow>{eyebrow}</Eyebrow>
-            <h2 className="text-2xl md:text-3xl font-heading font-bold text-primary">
+            <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary">
               {title}
             </h2>
           </div>
           <a
             href={viewAllLink}
-            className="hidden sm:inline-flex items-center gap-1 text-sm font-semibold text-accent hover:underline whitespace-nowrap"
+            className="hidden sm:inline-flex items-center gap-1 text-base font-semibold text-accent hover:underline whitespace-nowrap"
           >
             View All Industries →
           </a>
         </div>
 
-        {/* Grid */}
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-4 lg:grid-cols-8">
+        {/* Grid — 2 cols mobile, 4 cols tablet+, 4 cols desktop */}
+        <div className="grid grid-cols-2 gap-5 sm:grid-cols-4">
           {items.map(({ label }, i) => (
             <div
               key={i}
-              className="overflow-hidden rounded-xl border border-primary/10 bg-white text-center text-xs font-semibold text-primary shadow-sm hover:border-secondary/50 hover:shadow-md hover:-translate-y-0.5 transition-all group cursor-default"
+              className="overflow-hidden rounded-2xl border border-primary/10 bg-white text-center shadow-sm hover:border-secondary/50 hover:shadow-lg hover:-translate-y-1 transition-all group cursor-default"
             >
               <img
                 src="/homepage-placeholder.svg"
                 alt={label}
-                className="h-16 w-full object-cover"
+                className="h-32 w-full object-cover group-hover:scale-105 transition-transform duration-300"
               />
-              <div className="px-2 py-2 group-hover:text-secondary transition-colors leading-snug">
+              <div className="px-3 py-3 text-sm font-semibold text-primary group-hover:text-secondary transition-colors leading-snug">
                 {label}
               </div>
             </div>
@@ -61,7 +61,7 @@ export default function Industries() {
         </div>
 
         {/* Mobile link */}
-        <div className="mt-6 text-center sm:hidden">
+        <div className="mt-5 text-center sm:hidden">
           <a href={viewAllLink} className="text-sm font-semibold text-accent hover:underline">
             View All Industries →
           </a>

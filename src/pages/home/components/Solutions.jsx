@@ -23,20 +23,17 @@ export default function Solutions() {
   const { eyebrow, title, viewAllLink, items } = SOLUTIONS_DATA;
 
   return (
-    <section className="w-full bg-surface px-4 py-14 font-body">
+    <section className="w-full bg-surface px-4 sm:px-6 lg:px-8 py-8 font-body">
       <div className="max-w-7xl mx-auto">
         {/* Header row */}
-        <div className="flex items-end justify-between mb-8">
+        <div className="flex items-end justify-between mb-6">
           <div>
             <Eyebrow>{eyebrow}</Eyebrow>
-            <h2 className="text-2xl md:text-3xl font-heading font-bold text-primary">
+            <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary">
               {title}
             </h2>
           </div>
-          <a
-            href={viewAllLink}
-            className="hidden sm:inline-flex items-center gap-1 text-sm font-semibold text-accent hover:underline whitespace-nowrap"
-          >
+          <a href={viewAllLink} className="hidden sm:inline-flex items-center gap-1 text-base font-semibold text-accent hover:underline whitespace-nowrap">
             Explore All Solutions →
           </a>
         </div>
@@ -48,20 +45,13 @@ export default function Solutions() {
               key={i}
               className="overflow-hidden rounded-xl border border-primary/10 bg-white shadow-sm transition-all hover:-translate-y-1 hover:shadow-md hover:border-secondary/40 group"
             >
-              <img
-                src="/homepage-placeholder.svg"
-                alt={label}
-                className="h-32 w-full object-cover"
-              />
+              <img src="/homepage-placeholder.svg" alt={label} className="h-36 w-full object-cover" />
               <div className="p-4">
-                <h3 className="font-heading font-semibold text-sm text-primary group-hover:text-secondary transition-colors leading-snug mb-1">
+                <h3 className="font-heading font-semibold text-base text-primary group-hover:text-secondary transition-colors leading-snug mb-1">
                   {label}
                 </h3>
-                <p className="text-[11px] text-body/60 leading-relaxed mb-2">{desc}</p>
-                <a
-                  href={viewAllLink}
-                  className="text-xs font-semibold text-accent cursor-pointer hover:underline block"
-                >
+                <p className="text-sm text-body/60 leading-relaxed mb-2">{desc}</p>
+                <a href={viewAllLink} className="text-sm font-semibold text-accent cursor-pointer hover:underline block">
                   Learn More →
                 </a>
               </div>
@@ -69,11 +59,8 @@ export default function Solutions() {
           ))}
         </div>
 
-        {/* Mobile link */}
-        <div className="mt-6 text-center sm:hidden">
-          <a href={viewAllLink} className="text-sm font-semibold text-accent hover:underline">
-            Explore All Solutions →
-          </a>
+        <div className="mt-5 text-center sm:hidden">
+          <a href={viewAllLink} className="text-sm font-semibold text-accent hover:underline">Explore All Solutions →</a>
         </div>
       </div>
     </section>

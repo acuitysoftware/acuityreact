@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { HiMenuAlt3, HiX } from "react-icons/hi";
 import acuityLogo from "../assets/acuity-logo.png";
 
-export default function Header({ menu, company }) {
+export default function Header({ menu, company, overlay = false }) {
   const [open, setOpen] = useState(false);
 
   return (
     <header
-      className="sticky top-0 z-40 font-body shadow-md w-full"
+      className={`${overlay ? "sticky mx-auto w-[90%] -mb-[68px]" : "sticky w-auto mx-4 sm:mx-6 lg:mx-10"} top-0 z-40 font-body shadow-md rounded-xl`}
       style={{ backgroundColor: "#0B1730" }}
     >
       {/* ── Main bar ───────────────────────────────────────── */}

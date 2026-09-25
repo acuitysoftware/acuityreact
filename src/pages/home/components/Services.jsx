@@ -82,51 +82,42 @@ export default function Services() {
   const { eyebrow, title, subtitle, viewAllLink, items } = SERVICES_DATA;
 
   return (
-    <section className="w-full bg-white px-4 py-14 font-body">
+    <section className="w-full bg-white px-4 sm:px-6 lg:px-8 py-8 font-body">
       <div className="max-w-7xl mx-auto">
         {/* Header row */}
-        <div className="flex items-end justify-between mb-2">
+        <div className="flex items-end justify-between mb-1">
           <div>
             <Eyebrow>{eyebrow}</Eyebrow>
-            <h2 className="text-2xl md:text-3xl font-heading font-bold text-primary">
+            <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary">
               {title}
             </h2>
           </div>
-          <a
-            href={viewAllLink}
-            className="hidden sm:inline-flex items-center gap-1 text-sm font-semibold text-accent hover:underline whitespace-nowrap"
-          >
+          <a href={viewAllLink} className="hidden sm:inline-flex items-center gap-1 text-base font-semibold text-accent hover:underline whitespace-nowrap">
             View All Services →
           </a>
         </div>
-        <p className="text-body/60 text-sm mb-8 max-w-2xl">{subtitle}</p>
+        <p className="text-body/60 text-base mb-6 max-w-2xl">{subtitle}</p>
 
         {/* Grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {items.map(({ icon: Icon, title: t, desc, color, iconColor }, i) => (
             <div
               key={i}
-              className="border border-primary/8 rounded-xl p-5 bg-white hover:shadow-lg hover:border-secondary/30 hover:-translate-y-1 transition-all group cursor-default"
+              className="border border-primary/10 rounded-xl p-5 bg-white hover:shadow-lg hover:border-secondary/30 hover:-translate-y-1 transition-all group cursor-default"
             >
-              {/* Icon bubble */}
-              <div
-                className={`w-12 h-12 rounded-xl mb-4 flex items-center justify-center ${color}`}
-              >
-                <Icon className={`text-2xl ${iconColor}`} />
+              <div className={`w-14 h-14 rounded-xl mb-4 flex items-center justify-center ${color}`}>
+                <Icon className={`text-3xl ${iconColor}`} />
               </div>
-              <h3 className="font-heading font-semibold mb-2 text-primary group-hover:text-secondary transition-colors text-sm leading-snug">
+              <h3 className="font-heading font-semibold mb-2 text-primary group-hover:text-secondary transition-colors text-base leading-snug">
                 {t}
               </h3>
-              <p className="text-xs text-body/60 leading-relaxed">{desc}</p>
+              <p className="text-sm text-body/60 leading-relaxed">{desc}</p>
             </div>
           ))}
         </div>
 
-        {/* Mobile link */}
-        <div className="mt-6 text-center sm:hidden">
-          <a href={viewAllLink} className="text-sm font-semibold text-accent hover:underline">
-            View All Services →
-          </a>
+        <div className="mt-5 text-center sm:hidden">
+          <a href={viewAllLink} className="text-sm font-semibold text-accent hover:underline">View All Services →</a>
         </div>
       </div>
     </section>

@@ -20,19 +20,19 @@ export default function Portfolio() {
   const { eyebrow, title, viewAllLink, items } = PORTFOLIO_DATA;
 
   return (
-    <section className="w-full bg-surface px-4 py-14 font-body">
+    <section className="w-full bg-surface px-4 sm:px-6 lg:px-8 py-8 font-body">
       <div className="max-w-7xl mx-auto">
         {/* Header row */}
         <div className="flex items-end justify-between mb-8">
           <div>
             <Eyebrow>{eyebrow}</Eyebrow>
-            <h2 className="text-2xl md:text-3xl font-heading font-bold text-primary">
+            <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary">
               {title}
             </h2>
           </div>
           <a
             href={viewAllLink}
-            className="hidden sm:inline-flex items-center gap-1 text-sm font-semibold text-accent hover:underline whitespace-nowrap"
+            className="hidden sm:inline-flex items-center gap-1 text-base font-semibold text-accent hover:underline whitespace-nowrap"
           >
             View All Projects →
           </a>
@@ -49,7 +49,7 @@ export default function Portfolio() {
                 <img
                   src="/homepage-placeholder.svg"
                   alt={label}
-                  className="h-40 w-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  className="h-48 w-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 {/* Category badge */}
                 <span className="absolute top-3 left-3 text-[10px] font-semibold bg-accent text-white px-2.5 py-1 rounded-full shadow">
@@ -57,12 +57,12 @@ export default function Portfolio() {
                 </span>
               </div>
               <div className="p-4 flex items-center justify-between">
-                <span className="text-sm font-heading font-semibold text-primary group-hover:text-secondary transition-colors leading-snug">
+                <span className="text-base font-heading font-semibold text-primary group-hover:text-secondary transition-colors leading-snug">
                   {label}
                 </span>
                 <a
                   href={viewAllLink}
-                  className="text-xs font-semibold text-accent hover:underline whitespace-nowrap ml-2"
+                  className="text-sm font-semibold text-accent hover:underline whitespace-nowrap ml-2"
                 >
                   View →
                 </a>

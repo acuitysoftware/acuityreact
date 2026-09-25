@@ -60,7 +60,7 @@ export default function Hero() {
   return (
     <section
       className="relative isolate w-full overflow-hidden bg-black"
-      style={{ height: "calc(100svh - var(--header-height))" }}
+      style={{ height: "100svh", minHeight: "100vh" }}
     >
       {/* ── YouTube player fills the section ────────────────── */}
       <div
