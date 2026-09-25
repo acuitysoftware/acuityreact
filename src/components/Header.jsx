@@ -2,17 +2,17 @@ import React, { useState } from "react";
 import { HiMenuAlt3, HiX } from "react-icons/hi";
 import acuityLogo from "../assets/acuity-logo.png";
 
-export default function Header({ menu, company, overlay = false }) {
+export default function Header({ menu, company }) {
   const [open, setOpen] = useState(false);
 
   return (
     <header
-      className={`${overlay ? "sticky mx-auto w-[90%] -mb-[68px]" : "sticky w-auto mx-4 sm:mx-6 lg:mx-10"} top-0 z-40 font-body shadow-md rounded-xl`}
+      className="sticky top-0 z-40 w-full font-body shadow-md"
       style={{ backgroundColor: "#0B1730" }}
     >
       {/* ── Main bar ───────────────────────────────────────── */}
       <div
-        className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between gap-3"
+        className="w-full px-[10px] flex items-center justify-start gap-3"
         style={{ height: "68px" }}
       >
         {/* ── Logo (left) ─────────────────────────────────── */}
@@ -31,7 +31,7 @@ export default function Header({ menu, company, overlay = false }) {
         </a>
 
         {/* ── Desktop Nav (centre) ────────────────────────── */}
-        <nav className="hidden lg:flex items-center gap-4 flex-1 justify-center">
+        <nav className="hidden lg:flex items-center gap-4 ml-3">
           {menu.filter((m) => m.enabled).map((m) => (
             <div key={m.id} className="relative group">
               <a
@@ -67,7 +67,7 @@ export default function Header({ menu, company, overlay = false }) {
         {/* ── CTA button (right) ──────────────────────────── */}
         <a
           href="/contact"
-          className="hidden lg:inline-flex items-center gap-1 px-4 py-2 rounded-full text-white text-xs font-semibold whitespace-nowrap transition-all hover:opacity-90 shadow shrink-0"
+          className="hidden lg:inline-flex items-center gap-1 ml-auto px-4 py-2 rounded-full text-white text-xs font-semibold whitespace-nowrap transition-all hover:opacity-90 shadow shrink-0"
           style={{ backgroundColor: "#FD6301" }}
         >
           {company.cta} →
@@ -75,7 +75,7 @@ export default function Header({ menu, company, overlay = false }) {
 
         {/* ── Mobile hamburger ────────────────────────────── */}
         <button
-          className="lg:hidden text-xl shrink-0 transition-colors"
+          className="lg:hidden ml-auto text-xl shrink-0 transition-colors"
           style={{ color: "#F4F8FC" }}
           onClick={() => setOpen(!open)}
           aria-label="Toggle menu"

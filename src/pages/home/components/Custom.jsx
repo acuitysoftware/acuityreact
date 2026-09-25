@@ -1,9 +1,9 @@
-﻿import React from "react";
+import React from "react";
 
 export default function Custom({ data }) {
   return (
-    <section className="w-full bg-white px-4 py-12 font-body">
-      <div className="max-w-7xl mx-auto">
+    <section className="w-full bg-white px-[10px] py-12 font-body">
+      <div className="w-full">
         <h2 className="text-2xl font-heading font-bold mb-3 text-primary">
           {data.title || "Custom Section"}
         </h2>

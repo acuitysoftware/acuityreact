@@ -82,8 +82,8 @@ export default function Services() {
   const { eyebrow, title, subtitle, viewAllLink, items } = SERVICES_DATA;
 
   return (
-    <section className="w-full bg-white px-4 sm:px-6 lg:px-8 py-8 font-body">
-      <div className="max-w-7xl mx-auto">
+    <section className="w-full bg-white px-[10px] py-8 font-body">
+      <div className="w-full">
         {/* Header row */}
         <div className="flex items-end justify-between mb-1">
           <div>

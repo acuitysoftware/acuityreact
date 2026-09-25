@@ -27,14 +27,14 @@ export default function About() {
   const { eyebrow, title, body, ctaLink, stats, features } = ABOUT_DATA;
 
   return (
-    <section className="bg-primary px-4 sm:px-6 lg:px-8 py-10 font-body relative overflow-hidden">
+    <section className="w-full bg-primary px-[10px] py-10 font-body relative overflow-hidden">
       {/* Subtle bg pattern */}
       <div
         className="pointer-events-none absolute inset-0 opacity-5"
         style={{ backgroundImage: "radial-gradient(circle at 80% 50%, #01A9FB 0%, transparent 60%)" }}
       />
 
-      <div className="max-w-7xl mx-auto relative z-10">
+      <div className="w-full relative z-10">
         <div className="grid items-center gap-10 lg:grid-cols-2">
           {/* ── Left: image ── */}
           <div className="relative">

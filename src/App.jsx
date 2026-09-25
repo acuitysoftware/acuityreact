@@ -34,7 +34,7 @@ function loadConfig() {
   return { menu: DEFAULT_MENU, company: DEFAULT_COMPANY, sections: DEFAULT_SECTIONS };
 }
 
-function SiteLayout({ menu, company, children, overlayHeader = false }) {
+function SiteLayout({ menu, company, children }) {
   const initialPixelRatio = useRef(null);
   const [zoomCompensation, setZoomCompensation] = useState(1);
 
@@ -52,7 +52,7 @@ function SiteLayout({ menu, company, children, overlayHeader = false }) {
 
   return (
     <div style={{ zoom: zoomCompensation }}>
-      <Header menu={menu} company={company} overlay={overlayHeader} />
+      <Header menu={menu} company={company} />
       {children}
       <Footer company={company} menu={menu} />
     </div>
@@ -78,7 +78,7 @@ export default function App() {
     <BrowserRouter>
       <ToastContainer position="top-right" autoClose={3000} newestOnTop />
       <Routes>
-        <Route path="/" element={<SiteLayout menu={menu} company={company} overlayHeader><Home sections={sections} /></SiteLayout>} />
+        <Route path="/" element={<SiteLayout menu={menu} company={company}><Home sections={sections} /></SiteLayout>} />
         <Route path="/about" element={<SiteLayout menu={menu} company={company}><AboutPage company={company} /></SiteLayout>} />
         <Route path="/services" element={<SiteLayout menu={menu} company={company}><ServicesPage /></SiteLayout>} />
         <Route path="/industries" element={<SiteLayout menu={menu} company={company}><IndustriesPage /></SiteLayout>} />

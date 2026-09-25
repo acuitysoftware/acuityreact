@@ -25,8 +25,8 @@ export default function CTA() {
   const { title, subtitle, ctaLink, ctaLabel, phone, email, address, highlights } = CTA_DATA;
 
   return (
-    <section className="w-full bg-white px-4 py-16 font-body">
-      <div className="max-w-7xl mx-auto">
+    <section className="w-full bg-white px-[10px] py-16 font-body">
+      <div className="w-full">
         {/* Top hero-style banner */}
         <div className="relative overflow-hidden rounded-3xl bg-primary px-6 py-12 sm:px-12 sm:py-16 mb-0 text-white">
           {/* Decorative glow */}

@@ -56,7 +56,7 @@ export default function Testimonials() {
   const next = () => setActive((p) => (p === items.length - 1 ? 0 : p + 1));
 
   return (
-    <section className="text-white px-4 py-16 bg-primary font-body relative overflow-hidden">
+    <section className="w-full text-white px-[10px] py-16 bg-primary font-body relative overflow-hidden">
       {/* Background glow */}
       <div
         className="pointer-events-none absolute inset-0 opacity-10"
@@ -66,7 +66,7 @@ export default function Testimonials() {
         }}
       />
 
-      <div className="max-w-7xl mx-auto relative z-10">
+      <div className="w-full relative z-10">
         {/* Header */}
         <div className="mb-10 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
           <div>

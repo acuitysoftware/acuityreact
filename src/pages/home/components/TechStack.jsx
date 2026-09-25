@@ -1,7 +1,7 @@
-﻿import React from "react";
+import React from "react";
 import Eyebrow from "./Eyebrow";
 
-// ─── Section data (edit here to update the TechStack section) ────────────────
+// --- Section data (edit here to update the TechStack section) ----------------
 const TECHSTACK_DATA = {
   eyebrow: "OUR TECHNOLOGIES",
   title: "Technologies We Work With",
@@ -22,13 +22,13 @@ const TECHSTACK_DATA = {
   ],
 };
 
-// ─── Component ────────────────────────────────────────────────────────────────
+// --- Component ----------------------------------------------------------------
 export default function TechStack() {
   const { eyebrow, title, viewAllLink, items } = TECHSTACK_DATA;
 
   return (
-    <section className="w-full bg-white px-4 sm:px-6 lg:px-8 py-8 font-body">
-      <div className="max-w-7xl mx-auto">
+    <section className="w-full bg-white px-[10px] py-8 font-body">
+      <div className="w-full">
         {/* Header row */}
         <div className="flex items-end justify-between mb-6">
           <div>
@@ -38,7 +38,7 @@ export default function TechStack() {
             </h2>
           </div>
           <a href={viewAllLink} className="hidden sm:inline-flex items-center gap-1 text-base font-semibold text-accent hover:underline whitespace-nowrap">
-            View All Technologies →
+            View All Technologies ?
           </a>
         </div>
 
@@ -63,7 +63,7 @@ export default function TechStack() {
         </div>
 
         <div className="mt-5 text-center sm:hidden">
-          <a href={viewAllLink} className="text-sm font-semibold text-accent hover:underline">View All Technologies →</a>
+          <a href={viewAllLink} className="text-sm font-semibold text-accent hover:underline">View All Technologies ?</a>
         </div>
       </div>
     </section>
