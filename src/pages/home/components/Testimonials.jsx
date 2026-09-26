@@ -37,9 +37,9 @@ const TESTIMONIALS_DATA = {
 // ─── Star renderer ────────────────────────────────────────────────────────────
 function Stars({ count }) {
   return (
-    <div className="flex gap-0.5 mb-3">
+    <div className="flex gap-0.5 3xl:gap-2 mb-3 3xl:mb-10">
       {Array.from({ length: count }).map((_, i) => (
-        <svg key={i} viewBox="0 0 20 20" fill="#FCAE01" className="w-4 h-4">
+        <svg key={i} viewBox="0 0 20 20" fill="#FCAE01" className="w-4 h-4 lg:w-5 lg:h-5 2xl:w-6 2xl:h-6 3xl:w-8 3xl:h-8">
           <path d="M10 1l2.39 5.26L18 7.27l-4 3.89.94 5.5L10 13.77l-4.94 2.89.94-5.5-4-3.89 5.61-.01z" />
         </svg>
       ))}
@@ -99,11 +99,11 @@ export default function Testimonials() {
           {items.map(({ name, role, quote, rating, avatar }, i) => (
             <div
               key={i}
-              className={`bg-white text-body rounded-2xl p-6 2xl:p-8 3xl:p-12 min-h-[240px] 2xl:min-h-[280px] 3xl:min-h-[420px] shadow-sm hover:shadow-lg transition-all relative ${
+              className={`flex flex-col bg-white text-body rounded-2xl p-6 2xl:p-8 3xl:p-12 min-h-[240px] 2xl:min-h-[280px] 3xl:min-h-[420px] shadow-sm hover:shadow-lg transition-all relative ${
                 i === active ? "ring-2 ring-secondary ring-offset-2 ring-offset-primary" : ""
               }`}
             >          
-              <p className="text-sm 2xl:text-base 3xl:text-2xl text-body/75 leading-relaxed italic mb-5">"{quote}"</p>
+              <p className="text-sm 2xl:text-base 3xl:text-2xl text-body/75 leading-relaxed italic mb-5 3xl:mb-10">"{quote}"</p>
               <Stars count={rating} />
               <div className="flex items-center gap-3 mt-auto">
                 <div className="w-10 h-10 2xl:w-12 2xl:h-12 rounded-full bg-secondary flex items-center justify-center text-white font-heading font-bold text-sm 2xl:text-base shrink-0">

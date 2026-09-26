@@ -56,7 +56,7 @@ export default function Services() {
           {items.map(({ icon: Icon, title: t, desc, color, iconColor }, i) => (
             <div
               key={i}
-              className="flex flex-row gap-4 2xl:gap-5 3xl:gap-8 min-h-[160px] 2xl:min-h-[190px] 3xl:min-h-[340px] h-full border border-primary/10 rounded-xl p-5 2xl:p-6 3xl:p-9 bg-white hover:shadow-lg hover:border-secondary/30 hover:-translate-y-1 transition-all group cursor-default shadow-md shadow-gray-500"
+              className="relative flex flex-row gap-4 2xl:gap-5 3xl:gap-8 min-h-[160px] 2xl:min-h-[190px] 3xl:min-h-[340px] h-full border border-primary/10 rounded-xl p-5 2xl:p-6 3xl:p-9 bg-white hover:shadow-lg hover:border-secondary/30 hover:-translate-y-1 transition-all group cursor-default shadow-md shadow-gray-500"
             >
               {/* Icon container - added self-start so it doesn't stretch */}
               <div className={`w-14 h-14 2xl:w-16 2xl:h-16 3xl:w-20 3xl:h-20 rounded-xl flex items-center justify-center shrink-0 self-start ${color}`}>
@@ -69,13 +69,11 @@ export default function Services() {
                 <h3 className="font-heading font-extrabold mb-2 text-primary group-hover:text-secondary transition-colors text-base 2xl:text-lg 3xl:text-2xl leading-snug">
                   {t}
                 </h3>
-                <p className="text-sm 2xl:text-base 3xl:text-xl text-body/60 leading-relaxed">{desc}</p>
-
-                {/* Circle Arrow Button */}
-                <div className="mt-auto pt-4 flex justify-end">
-                  <div className="w-9 h-9 rounded-full bg-accent flex items-center justify-center text-white shadow-sm group-hover:scale-110 group-hover:rotate-45 transition-transform duration-300">
-                    <MdArrowOutward className="text-xl" />
-                  </div>
+                <p className="line-clamp-3 3xl:line-clamp-5 pr-10 3xl:pr-14 pb-2 text-sm 2xl:text-base 3xl:text-2xl text-body/60 leading-relaxed">
+                  {desc}
+                </p>
+                <div className="absolute bottom-5 right-5 3xl:bottom-8 3xl:right-8 w-9 h-9 3xl:w-12 3xl:h-12 rounded-full bg-accent flex items-center justify-center text-white shadow-sm transition-transform duration-300 group-hover:scale-110 group-hover:rotate-45">
+                  <MdArrowOutward className="text-xl 3xl:text-3xl" />
                 </div>
               </div>
             </div>

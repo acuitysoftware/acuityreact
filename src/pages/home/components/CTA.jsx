@@ -45,14 +45,14 @@ export default function CTA() {
           </p>
 
           {/* Highlight blocks - 2x2 grid with React Icons */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 2xl:gap-5 mb-10 max-w-lg 2xl:max-w-2xl">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 2xl:gap-5 3xl:gap-8 mb-10 max-w-lg 2xl:max-w-2xl 3xl:max-w-none 3xl:min-h-[480px] 3xl:grid-rows-2">
             {highlights.map(({ label, icon: Icon }, i) => (
               <div
                 key={i}
-                className="flex items-center gap-3 text-sm 2xl:text-base 3xl:text-xl font-semibold text-primary bg-surface border border-primary/10 rounded-xl px-4 py-3 2xl:px-5 2xl:py-4 3xl:px-7 3xl:py-6"
+                className="flex items-center gap-3 3xl:flex-col 3xl:justify-center 3xl:text-center text-sm 2xl:text-base 3xl:text-2xl font-semibold text-primary bg-surface border border-primary/10 rounded-xl px-4 py-3 2xl:px-5 2xl:py-4 3xl:px-7 3xl:py-6"
               >
-                <div className="w-9 h-9 2xl:w-11 2xl:h-11 3xl:w-12 3xl:h-12 rounded-full bg-accent/10 flex items-center justify-center text-accent shrink-0">
-                  <Icon className="text-lg 2xl:text-xl 3xl:text-2xl" />
+                <div className="w-9 h-9 2xl:w-11 2xl:h-11 3xl:w-16 3xl:h-16 rounded-full bg-accent/10 flex items-center justify-center text-accent shrink-0">
+                  <Icon className="text-lg 2xl:text-xl 3xl:text-4xl" />
                 </div>
                 {label}
               </div>
@@ -60,7 +60,7 @@ export default function CTA() {
           </div>
 
           {/* Contact Info */}
-          <div className="flex flex-col sm:flex-row gap-6">
+          {/* <div className="flex flex-col sm:flex-row gap-6">
             <a href={`tel:${phone}`} className="flex items-center gap-3 text-primary hover:text-accent transition-colors group">
               <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center group-hover:bg-accent/20 transition-colors shrink-0">
                 <FiPhone className="text-accent" />
@@ -80,7 +80,7 @@ export default function CTA() {
                 <div className="text-sm 3xl:text-xl font-semibold break-all">{email}</div>
               </div>
             </a>
-          </div>
+          </div> */}
         </div>
 
         {/* ── Right: Form Card ── */}

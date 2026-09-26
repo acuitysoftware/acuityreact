@@ -4,8 +4,8 @@ import {
   FaFacebookF,
   FaInstagram,
   FaLinkedinIn,
-  FaTwitter,
 } from "react-icons/fa";
+import { FaXTwitter, FaYoutube } from "react-icons/fa6";
 
 export default function Footer({ company, menu }) {
   const services = [
@@ -41,6 +41,8 @@ export default function Footer({ company, menu }) {
               { href: company.facebook, icon: FaFacebookF, label: "Facebook" },
               { href: company.instagram, icon: FaInstagram, label: "Instagram" },
               { href: company.linkedin, icon: FaLinkedinIn, label: "LinkedIn" },
+              { href: company.youtube || "https://www.youtube.com", icon: FaYoutube, label: "YouTube" },
+              { href: company.twitter || "https://x.com", icon: FaXTwitter, label: "X" },
             ].map(({ href, icon: Icon, label }) => (
               <a
                 key={label}
