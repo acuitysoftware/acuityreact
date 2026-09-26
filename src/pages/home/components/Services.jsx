@@ -36,7 +36,7 @@ export default function Services() {
 
   return (
     <section className="w-full bg-white px-10 py-8 font-body">
-      <div className="mx-auto w-full 2xl:max-w-[1600px] 3xl:max-w-[1900px]">
+      <div className="w-full">
         {/* Header row */}
         <div className="flex items-end justify-between mb-1">
           <div>

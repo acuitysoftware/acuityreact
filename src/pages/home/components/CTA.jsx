@@ -30,7 +30,7 @@ export default function CTA() {
 
   return (
     <section className="w-full bg-white px-10 py-14 font-body">
-      <div className="mx-auto w-full 2xl:max-w-[1600px] 3xl:max-w-[1900px] grid lg:grid-cols-2 gap-10 lg:gap-16 2xl:gap-20 items-start">
+      <div className="w-full grid lg:grid-cols-2 gap-10 lg:gap-16 2xl:gap-20 items-start">
         
         {/* ── Left: copy & contact info ── */}
         <div>

@@ -66,7 +66,7 @@ export default function Testimonials() {
         }}
       />
 
-      <div className="relative z-10 mx-auto w-full 2xl:max-w-[1600px] 3xl:max-w-[1900px]">
+      <div className="relative z-10 w-full">
         {/* Header */}
         <div className="mb-10 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
           <div>

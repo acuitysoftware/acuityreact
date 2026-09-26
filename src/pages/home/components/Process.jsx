@@ -24,7 +24,7 @@ export default function Process() {
 
   return (
     <section className="w-full bg-white px-10 py-14 font-body">
-      <div className="mx-auto w-full 2xl:max-w-[1600px] 3xl:max-w-[1900px]">
+      <div className="w-full">
         <div className="mb-8">
           <Eyebrow>{eyebrow}</Eyebrow>
           <h2 className="text-3xl md:text-4xl font-heading font-extrabold text-primary">

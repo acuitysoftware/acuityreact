@@ -27,7 +27,7 @@ export default function About() {
 
   return (
     <section className="w-full bg-body px-10 py-12 font-body relative overflow-hidden">
-      <div className="relative z-10 mx-auto w-full 2xl:max-w-[1600px] 3xl:max-w-[1900px]">
+      <div className="relative z-10 w-full">
         <div className="grid items-center gap-10 lg:grid-cols-2">
 
           {/* ── Left: image ── */}
