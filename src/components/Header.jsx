@@ -6,13 +6,11 @@ export default function Header({ menu, company }) {
 
   return (
     <header
-      className="sticky top-0 z-40 w-full font-body shadow-md px-6 lg:px-10"
+      className="sticky top-0 z-40 w-full font-body shadow-md px-10"
       style={{ backgroundColor: "black" }}
     >
-      {/* ── Inner container — caps width so content doesn't over-stretch on big monitors ── */}
-      <div className="max-w-[1600px] mx-auto">
-        {/* ── Main bar ───────────────────────────────────────── */}
-        <div className="relative w-full h-[68px] xl:h-[80px] 2xl:h-[96px] flex items-center justify-between gap-4">
+      {/* ── Main bar ───────────────────────────────────────── */}
+      <div className="relative w-full h-[68px] xl:h-[80px] 2xl:h-[96px] flex items-center justify-between gap-4">
           {/* ── Logo (left) ─────────────────────────────────── */}
           <a href="/" className="flex items-center gap-2 shrink-0">
             <img
@@ -23,7 +21,7 @@ export default function Header({ menu, company }) {
           </a>
 
           {/* ── Desktop Nav (centre) ────────────────────────── */}
-          <nav className="hidden lg:flex absolute left-1/2 -translate-x-1/2 items-center gap-5 xl:gap-8 2xl:gap-12">
+          <nav className="hidden lg:flex flex-1 items-center justify-center gap-5 xl:gap-8 2xl:gap-12">
             {menu.filter((m) => m.enabled).map((m) => (
               <div key={m.id} className="relative group">
                 {/* Restored <a> tag */}
@@ -62,7 +60,7 @@ export default function Header({ menu, company }) {
           {/* Restored <a> tag */}
           <a
             href="/contact"
-            className="hidden lg:inline-flex items-center gap-1 ml-auto px-4 xl:px-7 2xl:px-8 py-2 xl:py-3 2xl:py-3.5 rounded-full text-white text-xs xl:text-base 2xl:text-lg font-semibold whitespace-nowrap transition-all hover:opacity-90 shadow shrink-0"
+            className="hidden lg:inline-flex items-center gap-1 px-4 xl:px-7 2xl:px-8 py-2 xl:py-3 2xl:py-3.5 rounded-full text-white text-xs xl:text-base 2xl:text-lg font-semibold whitespace-nowrap transition-all hover:opacity-90 shadow shrink-0"
             style={{ backgroundColor: "#FD6301" }}
           >
             {company.cta} →
@@ -108,7 +106,6 @@ export default function Header({ menu, company }) {
             </a>
           </div>
         )}
-      </div>
     </header>
   );
 }
