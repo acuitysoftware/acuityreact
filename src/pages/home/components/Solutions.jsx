@@ -7,14 +7,14 @@ const SOLUTIONS_DATA = {
   title: "Our Solutions",
   viewAllLink: "/services",
   items: [
-    { label: "Web Solutions", desc: "See how modern websites can transform your digital sales and reach." },
-    { label: "Mobile App Solutions", desc: "Bespoke iOS & Android apps that engage and retain your customers." },
-    { label: "Cloud & Infrastructure", desc: "Scalable cloud solutions that grow with your business needs." },
-    { label: "AI & Automation", desc: "Intelligent solutions to automate business processes at scale." },
-    { label: "E-commerce Solutions", desc: "Complete and secure payment & shopping experiences." },
-    { label: "Digital Marketing Solutions", desc: "SEO, ads and content marketing to boost your online reach." },
-    { label: "Custom Software Solutions", desc: "Unique software built to tackle your exact challenges." },
-    { label: "IT Support & Consulting", desc: "Ongoing guidance and expert technical support for growth." },
+    { label: "Web Solutions", desc: "See how modern websites can transform your digital sales and reach.", image: "/assets/images/web-solution.jpg" },
+    { label: "Mobile App Solutions", desc: "Bespoke iOS & Android apps that engage and retain your customers.", image: "/assets/images/mobile-solution.jpg" },
+    { label: "Cloud & Infrastructure", desc: "Scalable cloud solutions that grow with your business needs.", image: "/assets/images/cloud.jpg" },
+    { label: "AI & Automation", desc: "Intelligent solutions to automate business processes at scale.", image: "/assets/images/ai-solution.jpg" },
+    { label: "E-commerce Solutions", desc: "Complete and secure payment & shopping experiences.", image: "/assets/images/ecommerce.jpg" },
+    { label: "Digital Marketing Solutions", desc: "SEO, ads and content marketing to boost your online reach.", image: "/assets/images/digital-market.jpg" },
+    { label: "Custom Software Solutions", desc: "Unique software built to tackle your exact challenges.", image: "/assets/images/software-solution.jpg" },
+    { label: "IT Support & Consulting", desc: "Ongoing guidance and expert technical support for growth.", image: "/assets/images/it-support.jpg" },
   ],
 };
 
@@ -40,12 +40,13 @@ export default function Solutions() {
 
         {/* Grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {items.map(({ label, desc }, i) => (
+          {items.map(({ label, desc, image }, i) => (
             <div
               key={i}
               className="overflow-hidden rounded-xl border border-primary/10 bg-white shadow-sm transition-all hover:-translate-y-1 hover:shadow-md hover:border-secondary/40 group"
             >
-              <img src="/homepage-placeholder.svg" alt={label} className="h-36 2xl:h-44 3xl:h-64 w-full object-cover" />
+              {/* Updated src to use the dynamic image property */}
+              <img src={image} alt={label} className="h-36 2xl:h-44 3xl:h-64 w-full object-cover" />
               <div className="p-4 2xl:p-5 3xl:p-8">
                 <h3 className="font-heading font-semibold text-base 2xl:text-lg 3xl:text-2xl text-primary group-hover:text-secondary transition-colors leading-snug mb-1">
                   {label}

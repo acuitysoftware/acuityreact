@@ -6,7 +6,6 @@ import {
   FaLinkedinIn,
   FaTwitter,
 } from "react-icons/fa";
-import acuityLogo from "../assets/acuity-logo.png";
 
 export default function Footer({ company, menu }) {
   const services = [
@@ -21,26 +20,23 @@ export default function Footer({ company, menu }) {
   return (
     <footer className="bg-body text-white font-body">
       {/* ── Main grid ─────────────────────────────────────────── */}
-      <div className="w-full px-10 py-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-8 text-sm">
+      <div className="w-full px-10 py-12 3xl:py-16 grid sm:grid-cols-2 lg:grid-cols-4 gap-8 3xl:gap-12 text-sm 3xl:text-lg">
         {/* Brand */}
         <div>
           {/* Logo */}
           <a href="/" className="flex items-center gap-2 mb-3">
             <img
-              src={acuityLogo}
+              src="/assets/images/white_logo.png"
               alt="Acuity logo"
-              className="h-8 w-auto object-contain brightness-0 invert"
+              className="h-12 2xl:h-16 3xl:h-20 w-auto object-contain"
             />
-            <span className="font-heading font-bold text-sm leading-tight text-white whitespace-nowrap">
-              {company.name}
-            </span>
           </a>
-          <p className="text-white/60 leading-relaxed mb-4 text-xs">
+          <p className="text-white/60 leading-relaxed mb-4 text-xs 3xl:text-lg">
             Helping businesses grow faster with modern websites, apps and
             digital marketing solutions.
           </p>
           {/* Social links */}
-          <div className="flex gap-2">
+          <div className="flex gap-2 3xl:gap-4">
             {[
               { href: company.facebook, icon: FaFacebookF, label: "Facebook" },
               { href: company.instagram, icon: FaInstagram, label: "Instagram" },
@@ -52,7 +48,7 @@ export default function Footer({ company, menu }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={label}
-                className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center text-white/60 hover:text-white hover:border-secondary hover:bg-secondary/15 transition-colors text-xs"
+                className="w-8 h-8 3xl:w-12 3xl:h-12 rounded-full border border-white/20 flex items-center justify-center text-white/60 hover:text-white hover:border-secondary hover:bg-secondary/15 transition-colors text-xs 3xl:text-base"
               >
                 <Icon />
               </a>
@@ -62,12 +58,12 @@ export default function Footer({ company, menu }) {
 
         {/* Quick Links */}
         <div>
-          <div className="font-heading font-semibold mb-4 text-white">Quick Links</div>
+          <div className="font-heading font-semibold mb-4 text-white text-sm 3xl:text-xl">Quick Links</div>
           {menu.filter((m) => m.enabled).map((m) => (
             <a
               key={m.id}
               href={m.link}
-              className="flex items-center gap-1.5 text-white/60 py-1 hover:text-secondary transition-colors"
+              className="flex items-center gap-1.5 text-white/60 py-1 3xl:py-2 hover:text-secondary transition-colors"
             >
               <span className="text-accent text-xs">›</span> {m.label}
             </a>
@@ -76,12 +72,12 @@ export default function Footer({ company, menu }) {
 
         {/* Services */}
         <div>
-          <div className="font-heading font-semibold mb-4 text-white">Our Services</div>
+          <div className="font-heading font-semibold mb-4 text-white text-sm 3xl:text-xl">Our Services</div>
           {services.map((s) => (
             <a
               key={s}
               href="/services"
-              className="flex items-center gap-1.5 text-white/60 py-1 hover:text-secondary transition-colors"
+              className="flex items-center gap-1.5 text-white/60 py-1 3xl:py-2 hover:text-secondary transition-colors"
             >
               <span className="text-accent text-xs">›</span> {s}
             </a>
@@ -90,34 +86,34 @@ export default function Footer({ company, menu }) {
 
         {/* Contact + Newsletter */}
         <div>
-          <div className="font-heading font-semibold mb-4 text-white">Contact Info</div>
-          <div className="space-y-3 mb-6">
+          <div className="font-heading font-semibold mb-4 text-white text-sm 3xl:text-xl">Contact Info</div>
+          <div className="space-y-3 3xl:space-y-5 mb-6">
             <a
               href={`tel:${company.phone}`}
-              className="text-white/60 py-0.5 flex items-center gap-2 hover:text-secondary transition-colors text-xs"
+              className="text-white/60 py-0.5 flex items-center gap-2 hover:text-secondary transition-colors text-xs 3xl:text-base"
             >
               <FiPhone className="shrink-0" /> {company.phone}
             </a>
             <a
               href={`mailto:${company.email}`}
-              className="text-white/60 py-0.5 flex items-center gap-2 hover:text-secondary transition-colors text-xs break-all"
+              className="text-white/60 py-0.5 flex items-center gap-2 hover:text-secondary transition-colors text-xs 3xl:text-base break-all"
             >
               <FiMail className="shrink-0" /> {company.email}
             </a>
-            <div className="text-white/60 py-0.5 flex items-center gap-2 text-xs">
+            <div className="text-white/60 py-0.5 flex items-center gap-2 text-xs 3xl:text-base">
               <FiMapPin className="shrink-0" /> {company.address}
             </div>
           </div>
 
           {/* Newsletter */}
-          <div className="font-heading font-semibold mb-3 text-white text-sm">Newsletter</div>
+          <div className="font-heading font-semibold mb-3 text-white text-sm 3xl:text-xl">Newsletter</div>
           <div className="flex gap-1">
             <input
               type="email"
-              className="rounded-lg px-3 py-2 text-body text-xs w-full bg-white focus:outline-none focus:ring-2 focus:ring-secondary"
+              className="rounded-lg px-3 py-2 3xl:px-4 3xl:py-4 text-body text-xs 3xl:text-base w-full bg-white focus:outline-none focus:ring-2 focus:ring-secondary"
               placeholder="Your email address"
             />
-            <button className="px-3 py-2 rounded-lg text-xs font-semibold bg-accent hover:bg-accent/90 text-white flex items-center gap-1 transition-colors shrink-0">
+            <button className="px-3 py-2 3xl:px-4 3xl:py-4 rounded-lg text-xs 3xl:text-base font-semibold bg-accent hover:bg-accent/90 text-white flex items-center gap-1 transition-colors shrink-0">
               <FiSend /> Join
             </button>
           </div>
@@ -126,11 +122,11 @@ export default function Footer({ company, menu }) {
 
       {/* ── Bottom bar ────────────────────────────────────────── */}
       <div className="border-t border-white/10">
-        <div className="w-full px-10 py-4 flex flex-col sm:flex-row items-center justify-between gap-2">
-          <div className="text-white/40 text-xs">
+        <div className="w-full px-10 py-4 3xl:py-6 flex flex-col sm:flex-row items-center justify-between gap-2 3xl:gap-4">
+          <div className="text-white/40 text-xs 3xl:text-base">
             © {new Date().getFullYear()} {company.name}. All Rights Reserved.
           </div>
-          <div className="flex gap-4 text-white/40 text-xs">
+          <div className="flex gap-4 3xl:gap-6 text-white/40 text-xs 3xl:text-base">
             <a href="/privacy" className="hover:text-white/70 transition-colors">Privacy Policy</a>
             <a href="/terms" className="hover:text-white/70 transition-colors">Terms & Conditions</a>
           </div>

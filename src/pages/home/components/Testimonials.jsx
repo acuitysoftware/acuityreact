@@ -103,15 +103,15 @@ export default function Testimonials() {
                 i === active ? "ring-2 ring-secondary ring-offset-2 ring-offset-primary" : ""
               }`}
             >          
-              <p className="text-sm 2xl:text-base 3xl:text-xl text-body/75 leading-relaxed italic mb-5">"{quote}"</p>
+              <p className="text-sm 2xl:text-base 3xl:text-2xl text-body/75 leading-relaxed italic mb-5">"{quote}"</p>
               <Stars count={rating} />
               <div className="flex items-center gap-3 mt-auto">
                 <div className="w-10 h-10 2xl:w-12 2xl:h-12 rounded-full bg-secondary flex items-center justify-center text-white font-heading font-bold text-sm 2xl:text-base shrink-0">
                   {avatar}
                 </div>
                 <div>
-                  <div className="font-heading font-semibold text-sm 2xl:text-base 3xl:text-xl text-primary">{name}</div>
-                  <div className="text-[11px] 2xl:text-xs 3xl:text-base text-body/50">{role}</div>
+                  <div className="font-heading font-semibold text-sm 2xl:text-base 3xl:text-2xl text-primary">{name}</div>
+                  <div className="text-[11px] 2xl:text-xs 3xl:text-lg text-body/50">{role}</div>
                 </div>
                 <MdFormatQuote className="text-4xl text-secondary/20 absolute bottom-4 right-4" />   
               </div>

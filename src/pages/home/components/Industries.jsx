@@ -7,14 +7,14 @@ const INDUSTRIES_DATA = {
   title: "Industries We Serve",
   viewAllLink: "/industries",
   items: [
-    { label: "Restaurant & Food Tech" },
-    { label: "Retail & E-commerce" },
-    { label: "Education" },
-    { label: "Travel & Hospitality" },
-    { label: "Healthcare" },
-    { label: "Real Estate" },
-    { label: "On-Demand Services" },
-    { label: "Others" },
+    { label: "Restaurant & Food Tech", image: "/assets/images/restaurant-food-tech.jpg" },
+    { label: "Retail & E-commerce", image: "/assets/images/retail-ecommerce.jpg" },
+    { label: "Education", image: "/assets/images/education.jpg" },
+    { label: "Travel & Hospitality", image: "/assets/images/travel-hospitality.jpg" },
+    { label: "Healthcare", image: "/assets/images/healthcare.jpg" },
+    { label: "Real Estate", image: "/assets/images/real-estate.jpg" },
+    { label: "On-Demand Services", image: "/assets/images/on-demand-services.jpg" },
+    { label: "Others", image: "/assets/images/others.jpg" },
   ],
 };
 
@@ -43,13 +43,14 @@ export default function Industries() {
 
         {/* Grid — 2 cols mobile, 4 cols tablet+, 4 cols desktop */}
         <div className="grid grid-cols-2 gap-5 sm:grid-cols-4">
-          {items.map(({ label }, i) => (
+          {items.map(({ label, image }, i) => (
             <div
               key={i}
               className="overflow-hidden rounded-2xl border border-primary/10 bg-white text-center shadow-sm hover:border-secondary/50 hover:shadow-lg hover:-translate-y-1 transition-all group cursor-default"
             >
+              {/* Updated src to use the dynamic image property */}
               <img
-                src="/homepage-placeholder.svg"
+                src={image}
                 alt={label}
                 className="h-32 2xl:h-40 3xl:h-64 w-full object-cover group-hover:scale-105 transition-transform duration-300"
               />

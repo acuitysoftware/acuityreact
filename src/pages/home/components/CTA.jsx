@@ -36,11 +36,11 @@ export default function CTA() {
         <div>
           <Eyebrow>{eyebrow}</Eyebrow>
           
-          <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary mb-4 leading-tight">
+          <h2 className="text-3xl md:text-4xl 3xl:text-6xl font-heading font-bold text-primary mb-4 leading-tight">
             {title}
           </h2>
           
-          <p className="text-body/60 leading-relaxed mb-8 text-base max-w-lg">
+          <p className="text-body/60 leading-relaxed mb-8 text-base 3xl:text-xl max-w-lg">
             {subtitle}
           </p>
 
@@ -49,7 +49,7 @@ export default function CTA() {
             {highlights.map(({ label, icon: Icon }, i) => (
               <div
                 key={i}
-                className="flex items-center gap-3 text-sm 2xl:text-base 3xl:text-lg font-semibold text-primary bg-surface border border-primary/10 rounded-xl px-4 py-3 2xl:px-5 2xl:py-4 3xl:px-6 3xl:py-5"
+                className="flex items-center gap-3 text-sm 2xl:text-base 3xl:text-xl font-semibold text-primary bg-surface border border-primary/10 rounded-xl px-4 py-3 2xl:px-5 2xl:py-4 3xl:px-7 3xl:py-6"
               >
                 <div className="w-9 h-9 2xl:w-11 2xl:h-11 3xl:w-12 3xl:h-12 rounded-full bg-accent/10 flex items-center justify-center text-accent shrink-0">
                   <Icon className="text-lg 2xl:text-xl 3xl:text-2xl" />
@@ -66,8 +66,8 @@ export default function CTA() {
                 <FiPhone className="text-accent" />
               </div>
               <div>
-                <div className="text-[11px] text-body/50 leading-none mb-0.5">Phone</div>
-                <div className="text-sm font-semibold">{phone}</div>
+                <div className="text-[11px] 3xl:text-base text-body/50 leading-none mb-0.5">Phone</div>
+                <div className="text-sm 3xl:text-xl font-semibold">{phone}</div>
               </div>
             </a>
 
@@ -76,8 +76,8 @@ export default function CTA() {
                 <FiMail className="text-accent" />
               </div>
               <div>
-                <div className="text-[11px] text-body/50 leading-none mb-0.5">Email</div>
-                <div className="text-sm font-semibold break-all">{email}</div>
+                <div className="text-[11px] 3xl:text-base text-body/50 leading-none mb-0.5">Email</div>
+                <div className="text-sm 3xl:text-xl font-semibold break-all">{email}</div>
               </div>
             </a>
           </div>
@@ -85,37 +85,37 @@ export default function CTA() {
 
         {/* ── Right: Form Card ── */}
         <div className="bg-surface border border-primary/10 rounded-2xl p-6 md:p-8 2xl:p-10 3xl:p-12 shadow-sm">
-          <h3 className="text-primary font-heading font-bold text-xl 2xl:text-2xl 3xl:text-3xl mb-5">Get a Free Quote</h3>
+          <h3 className="text-primary font-heading font-bold text-xl 2xl:text-2xl 3xl:text-4xl mb-5">Get a Free Quote</h3>
           
           <form className="flex flex-col gap-4" onSubmit={(e) => e.preventDefault()}>
             <input 
               type="text" 
               placeholder="Your Name" 
-              className="w-full px-4 py-3 2xl:px-5 2xl:py-4 rounded-lg border border-primary/10 bg-white text-primary text-sm 2xl:text-base 3xl:text-lg placeholder:text-body/40 focus:outline-none focus:border-accent transition-colors"
+              className="w-full px-4 py-3 2xl:px-5 2xl:py-4 3xl:px-6 3xl:py-5 rounded-lg border border-primary/10 bg-white text-primary text-sm 2xl:text-base 3xl:text-xl placeholder:text-body/40 focus:outline-none focus:border-accent transition-colors"
             />
             
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <input 
                 type="email" 
                 placeholder="Your Email" 
-                className="w-full px-4 py-3 2xl:px-5 2xl:py-4 rounded-lg border border-primary/10 bg-white text-primary text-sm 2xl:text-base 3xl:text-lg placeholder:text-body/40 focus:outline-none focus:border-accent transition-colors"
+                className="w-full px-4 py-3 2xl:px-5 2xl:py-4 3xl:px-6 3xl:py-5 rounded-lg border border-primary/10 bg-white text-primary text-sm 2xl:text-base 3xl:text-xl placeholder:text-body/40 focus:outline-none focus:border-accent transition-colors"
               />
               <input 
                 type="tel" 
                 placeholder="Phone Number" 
-                className="w-full px-4 py-3 2xl:px-5 2xl:py-4 rounded-lg border border-primary/10 bg-white text-primary text-sm 2xl:text-base 3xl:text-lg placeholder:text-body/40 focus:outline-none focus:border-accent transition-colors"
+                className="w-full px-4 py-3 2xl:px-5 2xl:py-4 3xl:px-6 3xl:py-5 rounded-lg border border-primary/10 bg-white text-primary text-sm 2xl:text-base 3xl:text-xl placeholder:text-body/40 focus:outline-none focus:border-accent transition-colors"
               />
             </div>
             
             <textarea 
               placeholder="Tell us about your project" 
               rows="4"
-              className="w-full px-4 py-3 2xl:px-5 2xl:py-4 rounded-lg border border-primary/10 bg-white text-primary text-sm 2xl:text-base 3xl:text-lg placeholder:text-body/40 focus:outline-none focus:border-accent transition-colors resize-none"
+              className="w-full px-4 py-3 2xl:px-5 2xl:py-4 3xl:px-6 3xl:py-5 rounded-lg border border-primary/10 bg-white text-primary text-sm 2xl:text-base 3xl:text-xl placeholder:text-body/40 focus:outline-none focus:border-accent transition-colors resize-none"
             ></textarea>
             
             <button 
               type="submit" 
-              className="w-full px-8 py-3.5 2xl:py-4 3xl:py-5 rounded-lg font-semibold text-white bg-accent hover:bg-accent/90 transition-colors shadow-md text-sm 2xl:text-base 3xl:text-lg mt-2"
+              className="w-full px-8 py-3.5 2xl:py-4 3xl:py-6 rounded-lg font-semibold text-white bg-accent hover:bg-accent/90 transition-colors shadow-md text-sm 2xl:text-base 3xl:text-xl mt-2"
             >
               Get a Free Quote →
             </button>

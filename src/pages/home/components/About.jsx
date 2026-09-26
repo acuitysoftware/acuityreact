@@ -33,7 +33,7 @@ export default function About() {
           {/* ── Left: image ── */}
           <div className="relative">
             <img
-              src="/assets/images/office-building.jpg" // Replace with your actual office image path
+              src="/assets/images/building.jpg" 
               alt="Acuity Software Services Office"
               className="h-72 w-full rounded-2xl object-cover sm:h-[450px] lg:h-[500px] 2xl:h-[560px] 3xl:h-[620px] ring-4 ring-white/10"
             />
