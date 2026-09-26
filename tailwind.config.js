@@ -3,6 +3,9 @@ export default {
   content: ["./index.html", "./src/**/*.{js,jsx}"],
   theme: {
     extend: {
+      screens: {
+        "3xl": "1920px",
+      },
       colors: {
         primary:    "#062B6E",  // Deep Navy Blue â€” headings, navbar, footer
         secondary:  "#01A9FB",  // Bright Cyan Blue â€” links, secondary buttons

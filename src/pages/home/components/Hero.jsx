@@ -21,7 +21,7 @@ export default function Hero() {
     >
       <video
         ref={videoRef}
-        src="/assets/videos/Untitled-video.mp4"
+        src="/assets/videos/acuity.mp4"
         autoPlay
         muted
         loop

@@ -27,7 +27,7 @@ export default function Header({ menu, company }) {
                 {/* Restored <a> tag */}
                 <a
                   href={m.link}
-                  className="text-xs xl:text-base 2xl:text-lg font-semibold whitespace-nowrap transition-colors hover:text-secondary"
+                  className="text-xs xl:text-base 2xl:text-lg 3xl:text-[1.6rem] font-semibold whitespace-nowrap transition-colors hover:text-secondary"
                   style={{ color: "#F4F8FC" }}
                 >
                   {m.label}
