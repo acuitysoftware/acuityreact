@@ -66,7 +66,7 @@ export default function Testimonials() {
         }}
       />
 
-      <div className="w-full relative z-10">
+      <div className="relative z-10 mx-auto w-full 2xl:max-w-[1600px] 3xl:max-w-[1900px]">
         {/* Header */}
         <div className="mb-10 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
           <div>
@@ -99,19 +99,19 @@ export default function Testimonials() {
           {items.map(({ name, role, quote, rating, avatar }, i) => (
             <div
               key={i}
-              className={`bg-white text-body rounded-2xl p-6 shadow-sm hover:shadow-lg transition-all relative ${
+              className={`bg-white text-body rounded-2xl p-6 2xl:p-8 3xl:p-10 min-h-[240px] 2xl:min-h-[280px] 3xl:min-h-[320px] shadow-sm hover:shadow-lg transition-all relative ${
                 i === active ? "ring-2 ring-secondary ring-offset-2 ring-offset-primary" : ""
               }`}
             >          
-              <p className="text-sm text-body/75 leading-relaxed italic mb-5">"{quote}"</p>
+              <p className="text-sm 2xl:text-base 3xl:text-lg text-body/75 leading-relaxed italic mb-5">"{quote}"</p>
               <Stars count={rating} />
               <div className="flex items-center gap-3 mt-auto">
-                <div className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center text-white font-heading font-bold text-sm shrink-0">
+                <div className="w-10 h-10 2xl:w-12 2xl:h-12 rounded-full bg-secondary flex items-center justify-center text-white font-heading font-bold text-sm 2xl:text-base shrink-0">
                   {avatar}
                 </div>
                 <div>
-                  <div className="font-heading font-semibold text-sm text-primary">{name}</div>
-                  <div className="text-[11px] text-body/50">{role}</div>
+                  <div className="font-heading font-semibold text-sm 2xl:text-base 3xl:text-lg text-primary">{name}</div>
+                  <div className="text-[11px] 2xl:text-xs 3xl:text-sm text-body/50">{role}</div>
                 </div>
                 <MdFormatQuote className="text-4xl text-secondary/20 absolute bottom-4 right-4" />   
               </div>

@@ -24,7 +24,7 @@ export default function Solutions() {
 
   return (
     <section className="w-full bg-surface px-10 py-8 font-body">
-      <div className="w-full">
+      <div className="mx-auto w-full 2xl:max-w-[1600px] 3xl:max-w-[1900px]">
         {/* Header row */}
         <div className="flex items-end justify-between mb-6">
           <div>
@@ -45,12 +45,12 @@ export default function Solutions() {
               key={i}
               className="overflow-hidden rounded-xl border border-primary/10 bg-white shadow-sm transition-all hover:-translate-y-1 hover:shadow-md hover:border-secondary/40 group"
             >
-              <img src="/homepage-placeholder.svg" alt={label} className="h-36 w-full object-cover" />
-              <div className="p-4">
-                <h3 className="font-heading font-semibold text-base text-primary group-hover:text-secondary transition-colors leading-snug mb-1">
+              <img src="/homepage-placeholder.svg" alt={label} className="h-36 2xl:h-44 3xl:h-52 w-full object-cover" />
+              <div className="p-4 2xl:p-5 3xl:p-6">
+                <h3 className="font-heading font-semibold text-base 2xl:text-lg 3xl:text-xl text-primary group-hover:text-secondary transition-colors leading-snug mb-1">
                   {label}
                 </h3>
-                <p className="text-sm text-body/60 leading-relaxed mb-2">{desc}</p>
+                <p className="text-sm 2xl:text-base 3xl:text-lg text-body/60 leading-relaxed mb-2">{desc}</p>
                 <a href={viewAllLink} className="text-sm font-semibold text-accent cursor-pointer hover:underline block">
                   Learn More →
                 </a>

@@ -21,7 +21,7 @@ export default function Portfolio() {
 
   return (
     <section className="w-full bg-surface px-10 py-8 font-body">
-      <div className="w-full">
+      <div className="mx-auto w-full 2xl:max-w-[1600px] 3xl:max-w-[1900px]">
         {/* Header row */}
         <div className="flex items-end justify-between mb-8">
           <div>
@@ -49,11 +49,11 @@ export default function Portfolio() {
                 <img
                   src="/assets/images/feature-project-sample.jpg"
                   alt={label}
-                  className="h-48 w-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  className="h-48 2xl:h-56 3xl:h-64 w-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
               </div>
-              <div className="p-4 flex items-center justify-between">
-                <span className="text-base font-heading font-semibold text-primary group-hover:text-secondary transition-colors leading-snug">
+              <div className="p-4 2xl:p-5 3xl:p-6 flex items-center justify-between">
+                <span className="text-base 2xl:text-lg 3xl:text-xl font-heading font-semibold text-primary group-hover:text-secondary transition-colors leading-snug">
                   {label}
                 </span>
               </div>

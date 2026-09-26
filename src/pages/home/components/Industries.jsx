@@ -24,7 +24,7 @@ export default function Industries() {
 
   return (
     <section className="w-full bg-surface px-10 py-8 font-body">
-      <div className="w-full">
+      <div className="mx-auto w-full 2xl:max-w-[1600px] 3xl:max-w-[1900px]">
         {/* Header row */}
         <div className="flex items-end justify-between mb-6">
           <div>
@@ -51,9 +51,9 @@ export default function Industries() {
               <img
                 src="/homepage-placeholder.svg"
                 alt={label}
-                className="h-32 w-full object-cover group-hover:scale-105 transition-transform duration-300"
+                className="h-32 2xl:h-40 3xl:h-48 w-full object-cover group-hover:scale-105 transition-transform duration-300"
               />
-              <div className="px-3 py-3 text-sm font-semibold text-primary group-hover:text-secondary transition-colors leading-snug">
+              <div className="px-3 py-3 2xl:px-4 2xl:py-4 3xl:px-5 3xl:py-5 text-sm 2xl:text-base 3xl:text-lg font-semibold text-primary group-hover:text-secondary transition-colors leading-snug">
                 {label}
               </div>
             </div>

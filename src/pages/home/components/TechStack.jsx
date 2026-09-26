@@ -28,7 +28,7 @@ export default function TechStack() {
 
   return (
     <section className="w-full bg-white px-10 py-8 font-body">
-      <div className="w-full">
+      <div className="mx-auto w-full 2xl:max-w-[1600px] 3xl:max-w-[1900px]">
         {/* Header row */}
         <div className="flex items-end justify-between mb-6">
           <div>
@@ -47,15 +47,15 @@ export default function TechStack() {
           {items.map(({ name, icon }, i) => (
             <div
               key={i}
-              className="flex flex-col items-center justify-center gap-2 rounded-xl border border-primary/10 bg-surface hover:border-secondary hover:shadow-md hover:bg-secondary/5 transition-all p-4 group cursor-default"
+              className="flex min-h-[132px] 2xl:min-h-[160px] 3xl:min-h-[184px] flex-col items-center justify-center gap-2 2xl:gap-3 rounded-xl border border-primary/10 bg-surface hover:border-secondary hover:shadow-md hover:bg-secondary/5 transition-all p-4 2xl:p-5 3xl:p-6 group cursor-default"
             >
               {/* Uses the specific icon path from the data object */}
               <img
                 src={icon}
                 alt={name}
-                className="h-12 w-12 object-contain"
+                className="h-12 w-12 2xl:h-14 2xl:w-14 3xl:h-16 3xl:w-16 object-contain"
               />
-              <span className="text-sm font-semibold text-primary text-center">
+              <span className="text-sm 2xl:text-base 3xl:text-lg font-semibold text-primary text-center">
                 {name}
               </span>
             </div>

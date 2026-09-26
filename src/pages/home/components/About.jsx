@@ -27,7 +27,7 @@ export default function About() {
 
   return (
     <section className="w-full bg-body px-10 py-12 font-body relative overflow-hidden">
-      <div className="w-full relative z-10">
+      <div className="relative z-10 mx-auto w-full 2xl:max-w-[1600px] 3xl:max-w-[1900px]">
         <div className="grid items-center gap-10 lg:grid-cols-2">
 
           {/* ── Left: image ── */}
@@ -35,7 +35,7 @@ export default function About() {
             <img
               src="/assets/images/office-building.jpg" // Replace with your actual office image path
               alt="Acuity Software Services Office"
-              className="h-72 w-full rounded-2xl object-cover sm:h-[450px] lg:h-[500px] ring-4 ring-white/10"
+              className="h-72 w-full rounded-2xl object-cover sm:h-[450px] lg:h-[500px] 2xl:h-[560px] 3xl:h-[620px] ring-4 ring-white/10"
             />
           </div>
 
@@ -44,20 +44,20 @@ export default function About() {
             <Eyebrow>{eyebrow}</Eyebrow>
 
             {/* Title with "Business" highlighted in accent color */}
-            <h2 className="mb-4 text-3xl md:text-4xl font-heading font-bold text-white leading-tight">
+            <h2 className="mb-4 text-3xl md:text-4xl 2xl:text-5xl 3xl:text-6xl font-heading font-bold text-white leading-tight">
               {title[0]} <span className="text-accent">{title[1]}</span>
             </h2>
 
-            <p className="mb-8 text-white/70 leading-relaxed text-base">{body}</p>
+            <p className="mb-8 text-white/70 leading-relaxed text-base 2xl:text-lg 3xl:text-xl">{body}</p>
 
             {/* Feature list with react-icons */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 2xl:gap-7 mb-8">
               {features.map(({ label, icon: Icon }, i) => (
                 <div key={i} className="flex flex-col items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-accent shrink-0">
-                    <Icon className="text-xl" />
+                  <div className="w-10 h-10 2xl:w-12 2xl:h-12 3xl:w-14 3xl:h-14 rounded-full bg-white/10 flex items-center justify-center text-accent shrink-0">
+                    <Icon className="text-xl 2xl:text-2xl 3xl:text-3xl" />
                   </div>
-                  <span className="text-base font-medium text-white/90 text-center">{label}</span>
+                  <span className="text-base 2xl:text-lg 3xl:text-xl font-medium text-white/90 text-center">{label}</span>
                 </div>
               ))}
             </div>

@@ -36,7 +36,7 @@ export default function Services() {
 
   return (
     <section className="w-full bg-white px-10 py-8 font-body">
-      <div className="w-full">
+      <div className="mx-auto w-full 2xl:max-w-[1600px] 3xl:max-w-[1900px]">
         {/* Header row */}
         <div className="flex items-end justify-between mb-1">
           <div>
@@ -56,20 +56,20 @@ export default function Services() {
           {items.map(({ icon: Icon, title: t, desc, color, iconColor }, i) => (
             <div
               key={i}
-              className="flex flex-row gap-4 h-full border border-primary/10 rounded-xl p-5 bg-white hover:shadow-lg hover:border-secondary/30 hover:-translate-y-1 transition-all group cursor-default shadow-md shadow-gray-500"
+              className="flex flex-row gap-4 2xl:gap-5 3xl:gap-6 min-h-[160px] 2xl:min-h-[190px] 3xl:min-h-[220px] h-full border border-primary/10 rounded-xl p-5 2xl:p-6 3xl:p-7 bg-white hover:shadow-lg hover:border-secondary/30 hover:-translate-y-1 transition-all group cursor-default shadow-md shadow-gray-500"
             >
               {/* Icon container - added self-start so it doesn't stretch */}
-              <div className={`w-14 h-14 rounded-xl flex items-center justify-center shrink-0 self-start ${color}`}>
-                <Icon className={`text-3xl ${iconColor}`} />
+              <div className={`w-14 h-14 2xl:w-16 2xl:h-16 3xl:w-[72px] 3xl:h-[72px] rounded-xl flex items-center justify-center shrink-0 self-start ${color}`}>
+                <Icon className={`text-3xl 2xl:text-4xl ${iconColor}`} />
               </div>
 
               {/* Text container - flex-col with h-full to allow button to push to bottom */}
               <div className="flex flex-col flex-1 h-full">
                 {/* Changed font-semibold to font-extrabold for thicker title */}
-                <h3 className="font-heading font-extrabold mb-2 text-primary group-hover:text-secondary transition-colors text-base leading-snug">
+                <h3 className="font-heading font-extrabold mb-2 text-primary group-hover:text-secondary transition-colors text-base 2xl:text-lg 3xl:text-xl leading-snug">
                   {t}
                 </h3>
-                <p className="text-sm text-body/60 leading-relaxed">{desc}</p>
+                <p className="text-sm 2xl:text-base 3xl:text-lg text-body/60 leading-relaxed">{desc}</p>
 
                 {/* Circle Arrow Button */}
                 <div className="mt-auto pt-4 flex justify-end">
