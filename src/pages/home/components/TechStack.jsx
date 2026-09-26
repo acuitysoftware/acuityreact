@@ -47,15 +47,15 @@ export default function TechStack() {
           {items.map(({ name, icon }, i) => (
             <div
               key={i}
-              className="flex min-h-[132px] 2xl:min-h-[160px] 3xl:min-h-[184px] flex-col items-center justify-center gap-2 2xl:gap-3 rounded-xl border border-primary/10 bg-surface hover:border-secondary hover:shadow-md hover:bg-secondary/5 transition-all p-4 2xl:p-5 3xl:p-6 group cursor-default"
+              className="flex min-h-[132px] 2xl:min-h-[160px] 3xl:min-h-[240px] flex-col items-center justify-center gap-2 2xl:gap-3 3xl:gap-5 rounded-xl border border-primary/10 bg-surface hover:border-secondary hover:shadow-md hover:bg-secondary/5 transition-all p-4 2xl:p-5 3xl:p-8 group cursor-default"
             >
               {/* Uses the specific icon path from the data object */}
               <img
                 src={icon}
                 alt={name}
-                className="h-12 w-12 2xl:h-14 2xl:w-14 3xl:h-16 3xl:w-16 object-contain"
+                className="h-12 w-12 2xl:h-14 2xl:w-14 3xl:h-20 3xl:w-20 object-contain"
               />
-              <span className="text-sm 2xl:text-base 3xl:text-lg font-semibold text-primary text-center">
+              <span className="text-sm 2xl:text-base 3xl:text-2xl font-semibold text-primary text-center">
                 {name}
               </span>
             </div>

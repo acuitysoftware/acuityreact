@@ -49,11 +49,11 @@ export default function Portfolio() {
                 <img
                   src="/assets/images/feature-project-sample.jpg"
                   alt={label}
-                  className="h-48 2xl:h-56 3xl:h-64 w-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  className="h-48 2xl:h-56 3xl:h-[360px] w-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
               </div>
-              <div className="p-4 2xl:p-5 3xl:p-6 flex items-center justify-between">
-                <span className="text-base 2xl:text-lg 3xl:text-xl font-heading font-semibold text-primary group-hover:text-secondary transition-colors leading-snug">
+              <div className="p-4 2xl:p-5 3xl:p-8 flex items-center justify-between">
+                <span className="text-base 2xl:text-lg 3xl:text-2xl font-heading font-semibold text-primary group-hover:text-secondary transition-colors leading-snug">
                   {label}
                 </span>
               </div>

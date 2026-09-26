@@ -45,12 +45,12 @@ export default function Solutions() {
               key={i}
               className="overflow-hidden rounded-xl border border-primary/10 bg-white shadow-sm transition-all hover:-translate-y-1 hover:shadow-md hover:border-secondary/40 group"
             >
-              <img src="/homepage-placeholder.svg" alt={label} className="h-36 2xl:h-44 3xl:h-52 w-full object-cover" />
-              <div className="p-4 2xl:p-5 3xl:p-6">
-                <h3 className="font-heading font-semibold text-base 2xl:text-lg 3xl:text-xl text-primary group-hover:text-secondary transition-colors leading-snug mb-1">
+              <img src="/homepage-placeholder.svg" alt={label} className="h-36 2xl:h-44 3xl:h-64 w-full object-cover" />
+              <div className="p-4 2xl:p-5 3xl:p-8">
+                <h3 className="font-heading font-semibold text-base 2xl:text-lg 3xl:text-2xl text-primary group-hover:text-secondary transition-colors leading-snug mb-1">
                   {label}
                 </h3>
-                <p className="text-sm 2xl:text-base 3xl:text-lg text-body/60 leading-relaxed mb-2">{desc}</p>
+                <p className="text-sm 2xl:text-base 3xl:text-xl text-body/60 leading-relaxed mb-2">{desc}</p>
                 <a href={viewAllLink} className="text-sm font-semibold text-accent cursor-pointer hover:underline block">
                   Learn More →
                 </a>

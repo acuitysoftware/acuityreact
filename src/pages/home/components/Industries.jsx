@@ -51,9 +51,9 @@ export default function Industries() {
               <img
                 src="/homepage-placeholder.svg"
                 alt={label}
-                className="h-32 2xl:h-40 3xl:h-48 w-full object-cover group-hover:scale-105 transition-transform duration-300"
+                className="h-32 2xl:h-40 3xl:h-64 w-full object-cover group-hover:scale-105 transition-transform duration-300"
               />
-              <div className="px-3 py-3 2xl:px-4 2xl:py-4 3xl:px-5 3xl:py-5 text-sm 2xl:text-base 3xl:text-lg font-semibold text-primary group-hover:text-secondary transition-colors leading-snug">
+              <div className="px-3 py-3 2xl:px-4 2xl:py-4 3xl:px-7 3xl:py-7 text-sm 2xl:text-base 3xl:text-2xl font-semibold text-primary group-hover:text-secondary transition-colors leading-snug">
                 {label}
               </div>
             </div>
