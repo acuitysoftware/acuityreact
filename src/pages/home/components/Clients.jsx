@@ -7,31 +7,29 @@ const CLIENTS_DATA = {
   title: "Our Recent Clients",
   viewAllLink: "/portfolio",
   items: [
-    { name: "Ali's Pizzeria", logo: "/assets/images/creative-logo-design-company.png" },
-    { name: "Pink & Purple", logo: "/assets/images/creative-logo-design-company.png" },
-    { name: "NexOrdr", logo: "/assets/images/creative-logo-design-company.png" },
-    { name: "BottleRunners", logo: "/assets/images/creative-logo-design-company.png" },
-    { name: "MenuHuts", logo: "/assets/images/creative-logo-design-company.png" },
-    { name: "Marco's Pizza", logo: "/assets/images/creative-logo-design-company.png" },
-    { name: "The Food Hub", logo: "/assets/images/creative-logo-design-company.png" },
-    { name: "Spice Villa", logo: "/assets/images/creative-logo-design-company.png" },
-    { name: "UrbanBite", logo: "/assets/images/creative-logo-design-company.png" },
-    { name: "TastyKart", logo: "/assets/images/creative-logo-design-company.png" },
+    { logo: "/assets/images/alis-pizzeria.png" },
+    { logo: "/assets/images/carry-all.png" },
+    { logo: "/assets/images/hand-shake.png" },
+    { logo: "/assets/images/lehong.png" },
+    { logo: "/assets/images/lime-kebabs.png" },
+    { logo: "/assets/images/ok-all.png" },
+    { logo: "/assets/images/sohan.png" },
+    { logo: "/assets/images/the-great.png" },
+    { logo: "/assets/images/virasat.png" },
+    { logo: "/assets/images/wildspice.png" },
   ],
 };
 
 // ─── Single logo card ─────────────────────────────────────────────────────────
-function ClientCard({ name, logo }) {
+function ClientCard({ logo }) {
   return (
-    <div className="flex flex-col items-center justify-center gap-2 md:gap-3 bg-white border border-primary/10 rounded-xl shadow-md hover:shadow-lg hover:border-secondary/40 transition-all p-4 md:p-5 3xl:p-7 hover:-translate-y-1 cursor-default group h-full">
+    <div className="flex items-center justify-center bg-white border border-primary/10 rounded-xl shadow-sm hover:shadow-md hover:border-secondary/40 transition-all p-3 md:p-4 hover:-translate-y-1 cursor-default group aspect-square w-full">
+      {/* Updated image classes to fill up to 80% of the square card nicely */}
       <img
         src={logo}
-        alt={name}
-        className="h-12 sm:h-14 3xl:h-20 w-full object-contain transition-transform group-hover:scale-105"
+        alt="Client logo"
+        className="max-w-[80%] max-h-[80%] w-auto h-auto object-contain transition-transform group-hover:scale-105"
       />
-      <span className="text-xs sm:text-sm 3xl:text-lg font-semibold text-primary text-center leading-tight">
-        {name}
-      </span>
     </div>
   );
 }
@@ -55,10 +53,10 @@ export default function Clients() {
           </a>
         </div>
 
-        {/* 2 Rows Grid: 2 cols on mobile (5 per row), 5 cols on md+ (2 rows total for 10 items) */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 md:gap-5 3xl:gap-8">
+        {/* Grid: 2 cols on mobile, 4 on tablet, 6 on desktop */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-3 md:gap-4">
           {items.map((client, i) => (
-            <ClientCard key={i} name={client.name} logo={client.logo} />
+            <ClientCard key={i} logo={client.logo} />
           ))}
         </div>
 

@@ -1,4 +1,4 @@
-export const DEFAULT_MENU = [
+﻿export const DEFAULT_MENU = [
   { id: "m1", label: "Home", link: "/", enabled: true },
   { id: "m2", label: "About Us", link: "/about", enabled: true },
   {
