@@ -16,15 +16,11 @@ export default function AdminHeader({ company, onMenuClick }) {
         >
           <HiMenuAlt2 />
         </button>
-        <div className="flex items-center gap-2 font-bold text-sm sm:text-base truncate">
-          <span className="grid grid-cols-2 gap-0.5 shrink-0">
-            <span className="w-2.5 h-2.5 bg-orange-500 rounded-sm" />
-            <span className="w-2.5 h-2.5 bg-blue-300 rounded-sm" />
-            <span className="w-2.5 h-2.5 bg-blue-300 rounded-sm" />
-            <span className="w-2.5 h-2.5 bg-orange-500 rounded-sm" />
-          </span>
-          <span className="truncate">{company?.name || "Acuity"} — Admin</span>
-        </div>
+        <img
+          src="/assets/images/white_logo.png"
+          alt={company?.name || "Acuity"}
+          className="h-12 w-auto max-w-[180px] object-contain"
+        />
       </div>
       <div className="flex items-center gap-3 sm:gap-4 text-sm shrink-0">
         <a

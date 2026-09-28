@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from "react";
-import { FiSearch, FiCopy, FiTrash2, FiEdit2 } from "react-icons/fi";
+import { FiSearch, FiCopy, FiTrash2, FiEdit2, FiChevronDown } from "react-icons/fi";
 import { GoPlus } from "react-icons/go";
 import { BsGripVertical } from "react-icons/bs";
 import CMSModal from "./components/CMSModal";
@@ -50,6 +50,10 @@ const CmsSettings = () => {
     const lastPageIndex = firstPageIndex + itemsPerPage;
     return filteredData.slice(firstPageIndex, lastPageIndex);
   }, [filteredData, currentPage, itemsPerPage]);
+
+  const totalPages = Math.ceil(filteredData.length / itemsPerPage) || 1;
+  const showingFrom = filteredData.length === 0 ? 0 : (currentPage - 1) * itemsPerPage + 1;
+  const showingTo = Math.min(currentPage * itemsPerPage, filteredData.length);
 
   // Handlers
   const handleSearch = (e) => {
@@ -109,9 +113,8 @@ const CmsSettings = () => {
     const newIndex = data.findIndex((item) => item.id === over.id);
 
     if (oldIndex !== -1 && newIndex !== -1) {
-      // Use arrayMove for smooth local state update
       const newData = arrayMove(data, oldIndex, newIndex);
-      
+
       // Re-calculate ranks globally
       const reRankedData = newData.map((item, index) => ({
         ...item,
@@ -156,27 +159,31 @@ const CmsSettings = () => {
     setIsModalOpen(false);
   };
 
+  // Header cell style (rounded ends make the header look like one pill bar)
+  const th =
+    "px-4 py-3.5 bg-[#F4F4F4] text-xs font-bold text-body first:rounded-l-xl last:rounded-r-xl";
+
   return (
-    <div className="p-6 bg-gray-50 min-h-screen">
+    <div className="p-6 bg-white min-h-screen font-body">
       {/* Header */}
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-semibold text-gray-800">CMS Pages</h1>
+        <h1 className="text-2xl font-heading font-bold text-primary">CMS Pages</h1>
       </div>
 
       {/* Toolbar */}
-      <div className="bg-white p-4 rounded-lg shadow-sm mb-4 flex flex-col sm:flex-row gap-4 justify-between items-center">
+      <div className="mb-4 flex flex-col sm:flex-row gap-4 justify-between items-center">
         <div className="flex gap-2">
           {selectedIds.length > 0 && (
             <button
               onClick={handleDelete}
-              className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md flex items-center gap-2 transition-colors"
+              className="bg-red-500 hover:bg-red-600 text-white text-sm font-semibold px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
             >
               <FiTrash2 /> Delete Selected
             </button>
           )}
           <button
             onClick={handleAdd}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md flex items-center gap-2 transition-colors"
+            className="bg-accent hover:brightness-95 text-white text-sm font-semibold px-4 py-2 rounded-lg flex items-center gap-2 transition"
           >
             <GoPlus /> Add Page
           </button>
@@ -188,104 +195,112 @@ const CmsSettings = () => {
             placeholder="Search pages..."
             value={search}
             onChange={handleSearch}
-            className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
+            className="w-full pl-10 pr-4 py-2 text-sm bg-[#F4F4F4] rounded-lg outline-none focus:ring-2 focus:ring-secondary/40 transition-all"
           />
           <FiSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
         </div>
       </div>
 
       {/* Table */}
-      <div className="bg-white rounded-lg shadow-sm overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="w-full text-left border-collapse">
-            <thead>
-              <tr className="bg-gray-50 border-b border-gray-200">
-                <th className="p-4 w-10">
-                  <input
-                    type="checkbox"
-                    checked={selectedIds.length === currentTableData.length && currentTableData.length > 0}
-                    onChange={handleSelectAll}
-                    className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-                  />
-                </th>
-                <th className="p-4 w-10"></th> {/* Drag Handle Column */}
-                <th className="p-4 font-semibold text-gray-600 text-sm">Rank</th>
-                <th className="p-4 font-semibold text-gray-600 text-sm">Page Title</th>
-                <th className="p-4 font-semibold text-gray-600 text-sm">URL</th>
-                <th className="p-4 font-semibold text-gray-600 text-sm">Status</th>
-                <th className="p-4 font-semibold text-gray-600 text-sm text-right">Actions</th>
-              </tr>
-            </thead>
-            <DndContext
-              sensors={sensors}
-              collisionDetection={closestCenter}
-              onDragEnd={handleDragEnd}
+      <div className="overflow-x-auto">
+        <table className="w-full text-left border-separate border-spacing-y-1">
+          <thead>
+            <tr>
+              <th className={`${th} w-10`}>
+                <input
+                  type="checkbox"
+                  checked={
+                    selectedIds.length === currentTableData.length &&
+                    currentTableData.length > 0
+                  }
+                  onChange={handleSelectAll}
+                  className="w-4 h-4 rounded border-gray-300 accent-accent"
+                />
+              </th>
+              <th className={`${th} w-10`}></th> {/* Drag Handle Column */}
+              <th className={th}>Rank</th>
+              <th className={th}>Page Title</th>
+              <th className={th}>URL</th>
+              <th className={th}>Status</th>
+              <th className={`${th} text-right`}>Actions</th>
+            </tr>
+          </thead>
+          <DndContext
+            sensors={sensors}
+            collisionDetection={closestCenter}
+            onDragEnd={handleDragEnd}
+          >
+            <SortableContext
+              items={currentTableData.map((item) => item.id)}
+              strategy={verticalListSortingStrategy}
             >
-              <SortableContext
-                items={currentTableData.map((item) => item.id)}
-                strategy={verticalListSortingStrategy}
-              >
-                <tbody>
-                  {currentTableData.map((item) => (
-                    <SortableRow
-                      key={item.id}
-                      item={item}
-                      selectedIds={selectedIds}
-                      handleSelectRow={handleSelectRow}
-                      handleStatusChange={handleStatusChange}
-                      handleCopy={handleCopy}
-                      handleEdit={handleEdit}
-                    />
-                  ))}
-                  {currentTableData.length === 0 && (
-                    <tr>
-                      <td colSpan="7" className="p-4 text-center text-gray-500">
-                        No data found
-                      </td>
-                    </tr>
-                  )}
-                </tbody>
-              </SortableContext>
-            </DndContext>
-          </table>
-        </div>
+              <tbody>
+                {currentTableData.map((item, index) => (
+                  <SortableRow
+                    key={item.id}
+                    item={item}
+                    index={index}
+                    selectedIds={selectedIds}
+                    handleSelectRow={handleSelectRow}
+                    handleStatusChange={handleStatusChange}
+                    handleCopy={handleCopy}
+                    handleEdit={handleEdit}
+                  />
+                ))}
+                {currentTableData.length === 0 && (
+                  <tr>
+                    <td colSpan="7" className="p-6 text-center text-sm text-gray-500">
+                      No data found
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </SortableContext>
+          </DndContext>
+        </table>
+      </div>
 
-        {/* Pagination */}
-        <div className="p-4 flex flex-col sm:flex-row justify-between items-center gap-4 border-t border-gray-100">
-          <div className="flex items-center gap-2 text-sm text-gray-600">
-            <span>Items per page:</span>
+      {/* Footer / Pagination */}
+      <div className="mt-4 flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-body/60">
+        <span>
+          Showing {showingFrom} to {showingTo} of {filteredData.length} items
+        </span>
+
+        <div className="flex items-center gap-3">
+          <button
+            disabled={currentPage === 1}
+            onClick={() => setCurrentPage((prev) => prev - 1)}
+            className="px-3 py-1.5 text-xs font-semibold text-body bg-[#F4F4F4] rounded-lg disabled:opacity-40 disabled:cursor-not-allowed hover:bg-gray-200 transition-colors"
+          >
+            Previous
+          </button>
+          <span className="text-xs text-body">
+            Page <strong>{currentPage}</strong> of {totalPages}
+          </span>
+          <button
+            disabled={currentPage === totalPages}
+            onClick={() => setCurrentPage((prev) => prev + 1)}
+            className="px-3 py-1.5 text-xs font-semibold text-body bg-[#F4F4F4] rounded-lg disabled:opacity-40 disabled:cursor-not-allowed hover:bg-gray-200 transition-colors"
+          >
+            Next
+          </button>
+
+          {/* Items per page */}
+          <div className="relative">
             <select
               value={itemsPerPage}
               onChange={(e) => {
                 setItemsPerPage(Number(e.target.value));
                 setCurrentPage(1);
               }}
-              className="border border-gray-300 rounded-md py-1 px-2 focus:ring-2 focus:ring-blue-500 outline-none"
+              className="appearance-none bg-white border border-gray-200 rounded-lg pl-3 pr-8 py-1.5 text-xs font-semibold text-body outline-none focus:ring-2 focus:ring-secondary/40 cursor-pointer"
             >
               <option value={5}>5</option>
               <option value={10}>10</option>
               <option value={20}>20</option>
+              <option value={50}>50</option>
             </select>
-          </div>
-
-          <div className="flex items-center gap-2">
-            <button
-              disabled={currentPage === 1}
-              onClick={() => setCurrentPage((prev) => prev - 1)}
-              className="px-3 py-1 border border-gray-300 rounded-md disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 transition-colors"
-            >
-              Previous
-            </button>
-            <span className="text-sm text-gray-700">
-              Page <strong>{currentPage}</strong> of {Math.ceil(filteredData.length / itemsPerPage) || 1}
-            </span>
-            <button
-              disabled={currentPage === Math.ceil(filteredData.length / itemsPerPage)}
-              onClick={() => setCurrentPage((prev) => prev + 1)}
-              className="px-3 py-1 border border-gray-300 rounded-md disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 transition-colors"
-            >
-              Next
-            </button>
+            <FiChevronDown className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-body/60" />
           </div>
         </div>
       </div>
@@ -308,6 +323,7 @@ const CmsSettings = () => {
 // =============================================
 const SortableRow = ({
   item,
+  index,
   selectedIds,
   handleSelectRow,
   handleStatusChange,
@@ -326,65 +342,82 @@ const SortableRow = ({
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
-    background: isDragging ? "#f0f9ff" : "white", // Light blue tint while dragging
     zIndex: isDragging ? 1000 : "auto",
+    position: isDragging ? "relative" : undefined,
   };
 
+  // Alternate rows: white / light grey. Background sits on the cells so the
+  // rounded ends work inside a table.
+  const bg = isDragging ? "bg-sky-50" : index % 2 === 1 ? "bg-[#F4F4F4]" : "bg-white";
+  const td = `px-4 py-3 ${bg} first:rounded-l-xl last:rounded-r-xl`;
+
   return (
-    <tr
-      ref={setNodeRef}
-      style={style}
-      className={`border-b border-gray-100 hover:bg-gray-50 transition-colors ${isDragging ? "shadow-md" : ""}`}
-    >
-      <td className="p-4">
+    <tr ref={setNodeRef} style={style} className={isDragging ? "shadow-md" : ""}>
+      <td className={td}>
         <input
           type="checkbox"
           checked={selectedIds.includes(item.id)}
           onChange={() => handleSelectRow(item.id)}
-          className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+          className="w-4 h-4 rounded border-gray-300 accent-accent"
         />
       </td>
-      
+
       {/* Drag Handle - listeners and attributes applied here */}
-      <td className="p-4">
+      <td className={td}>
         <button
-          className="cursor-move text-gray-400 hover:text-gray-600 touch-none flex items-center justify-center"
+          className="cursor-grab active:cursor-grabbing touch-none w-6 h-6 rounded-full border border-gray-300 bg-white text-gray-500 hover:text-primary hover:border-primary flex items-center justify-center transition-colors"
           {...attributes}
           {...listeners}
         >
-          <BsGripVertical size={20} />
+          <BsGripVertical size={14} />
         </button>
       </td>
 
-      <td className="p-4 text-gray-700 text-sm">{item.rank}</td>
-      <td className="p-4 text-gray-700 text-sm font-medium">{item.page_title}</td>
-      <td className="p-4 text-gray-500 text-sm">
+      <td className={`${td} text-sm text-body`}>{item.rank}</td>
+
+      {/* Title + small description underneath (like name + email in the design) */}
+      <td className={td}>
+        <div className="text-sm font-medium text-body leading-tight">{item.page_title}</div>
+        <div className="text-[11px] text-body/50 mt-0.5">{item.short_description}</div>
+      </td>
+
+      <td className={`${td} text-sm text-body/70`}>
         <div className="flex items-center gap-2">
           <span>{`/${item.page_url}`}</span>
           <FiCopy
-            className="cursor-pointer text-gray-400 hover:text-blue-500 transition-colors"
+            className="cursor-pointer text-gray-400 hover:text-secondary transition-colors"
             onClick={() => handleCopy(item.page_url)}
           />
         </div>
       </td>
-      <td className="p-4">
-        <label className="inline-flex relative items-center cursor-pointer">
-          <input
-            type="checkbox"
-            value=""
-            className="sr-only peer"
-            checked={item.status}
-            onChange={() => handleStatusChange(item.id)}
+
+      {/* Status: dot + coloured label, click to toggle */}
+      <td className={td}>
+        <button
+          type="button"
+          onClick={() => handleStatusChange(item.id)}
+          className={`inline-flex items-center gap-2 text-xs font-semibold ${
+            item.status ? "text-green-600" : "text-red-600"
+          }`}
+          title="Click to toggle status"
+        >
+          <span
+            className={`w-3.5 h-3.5 rounded-full border-2 ${
+              item.status
+                ? "border-green-300 bg-green-500"
+                : "border-red-300 bg-red-500"
+            }`}
           />
-          <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
-        </label>
+          {item.status ? "Active" : "Inactive"}
+        </button>
       </td>
-      <td className="p-4 text-right">
+
+      <td className={`${td} text-right`}>
         <button
           onClick={() => handleEdit(item)}
-          className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-gray-100 shadow-sm text-xs font-semibold text-body hover:border-secondary/40 hover:text-secondary transition-colors"
         >
-          <FiEdit2 size={14} /> Edit
+          <FiEdit2 size={12} /> Edit
         </button>
       </td>
     </tr>

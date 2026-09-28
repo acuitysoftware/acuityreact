@@ -1,13 +1,10 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import AuthLayout from "./AuthLayout";
 import Field from "./Field";
 
-// Admin registration page. No API wired up yet — `handleSubmit` is the
-// single place to plug in your real signup call once ready, e.g.:
-// POST /api/admin/register, then either auto-login or redirect to /admin/login.
 export default function Register() {
   const navigate = useNavigate();
   const [form, setForm] = useState({ name: "", email: "", password: "", confirmPassword: "" });
@@ -62,29 +59,18 @@ export default function Register() {
   };
 
   return (
-    <AuthLayout
-      title="Create Admin Account"
-      subtitle="Register to get access to the website admin dashboard."
-      footer={
-        <>
-          Already have an account?{" "}
-          <Link to="/admin/login" className="text-orange-400 font-semibold hover:underline">
-            Sign In
-          </Link>
-        </>
-      }
-    >
+    <AuthLayout active="register" title="Create Account" subtitle="Sign up to get started!">
       <form onSubmit={handleSubmit}>
         {error && (
-          <div className="mb-4 text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg px-3 py-2">
+          <div className="mb-3 text-sm text-red-600 bg-red-50 border border-red-200 rounded-xl px-3 py-2">
             {error}
           </div>
         )}
 
-        <Field label="Full Name" value={form.name} onChange={set("name")} placeholder="Paul D'Souza" required />
+        <Field label="Full name" value={form.name} onChange={set("name")} placeholder="Paul D'Souza" required />
 
         <Field
-          label="Email"
+          label="Your email"
           type="email"
           value={form.email}
           onChange={set("email")}
@@ -103,7 +89,7 @@ export default function Register() {
             <button
               type="button"
               onClick={() => setShowPassword((v) => !v)}
-              className="text-slate-400 hover:text-slate-600"
+              className="text-body/40 hover:text-body/70 text-lg"
               aria-label={showPassword ? "Hide password" : "Show password"}
             >
               {showPassword ? <FiEyeOff /> : <FiEye />}
@@ -112,7 +98,7 @@ export default function Register() {
         />
 
         <Field
-          label="Confirm Password"
+          label="Confirm password"
           type={showPassword ? "text" : "password"}
           value={form.confirmPassword}
           onChange={set("confirmPassword")}
@@ -123,9 +109,9 @@ export default function Register() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full py-2.5 rounded-lg text-white font-semibold bg-orange-500 hover:bg-orange-600 transition disabled:opacity-60 mt-2"
+          className="w-full h-14 mt-3 rounded-2xl bg-gold text-white font-heading font-bold text-base hover:brightness-95 transition disabled:opacity-60"
         >
-          {loading ? "Creating account…" : "Create Account"}
+          {loading ? "Creating account…" : "Continue"}
         </button>
       </form>
     </AuthLayout>

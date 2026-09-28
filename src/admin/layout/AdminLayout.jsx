@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Outlet } from "react-router-dom";
 import AdminHeader from "./AdminHeader";
 import AdminSidebar from "./AdminSidebar";
@@ -14,9 +14,24 @@ import AdminSidebar from "./AdminSidebar";
 //   backdrop to dismiss it.
 export default function AdminLayout({ company }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const initialPixelRatio = useRef(null);
+  const [zoomCompensation, setZoomCompensation] = useState(1);
+
+  useEffect(() => {
+    initialPixelRatio.current = window.devicePixelRatio || 1;
+
+    const matchInitialZoom = () => {
+      const currentPixelRatio = window.devicePixelRatio || 1;
+      setZoomCompensation(initialPixelRatio.current / currentPixelRatio);
+    };
+
+    window.addEventListener("resize", matchInitialZoom);
+    return () => window.removeEventListener("resize", matchInitialZoom);
+  }, []);
 
   return (
-    <div className="h-screen flex flex-col overflow-hidden">
+    <div style={{ zoom: zoomCompensation }} className="h-screen flex flex-col overflow-hidden">
       <AdminHeader company={company} onMenuClick={() => setSidebarOpen((v) => !v)} />
       <div className="flex flex-1 min-h-0 relative">
         {/* Backdrop for mobile/tablet when sidebar is open */}
@@ -33,7 +48,11 @@ export default function AdminLayout({ company }) {
             (sidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0")
           }
         >
-          <AdminSidebar onNavigate={() => setSidebarOpen(false)} />
+          <AdminSidebar
+            onNavigate={() => setSidebarOpen(false)}
+            collapsed={sidebarCollapsed}
+            onToggleCollapse={() => setSidebarCollapsed((value) => !value)}
+          />
         </div>
 
         <main className="flex-1 min-w-0 overflow-y-auto bg-slate-50 p-4 sm:p-6">
