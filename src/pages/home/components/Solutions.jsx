@@ -23,13 +23,13 @@ export default function Solutions() {
   const { eyebrow, title, viewAllLink, items } = SOLUTIONS_DATA;
 
   return (
-    <section className="w-full bg-surface px-10 py-8 font-body">
+    <section className="w-full bg-surface px-4 sm:px-6 lg:px-10 py-8 font-body">
       <div className="w-full">
         {/* Header row */}
         <div className="flex items-end justify-between mb-6">
           <div>
             <Eyebrow>{eyebrow}</Eyebrow>
-            <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold text-primary">
               {title}
             </h2>
           </div>
@@ -39,7 +39,7 @@ export default function Solutions() {
         </div>
 
         {/* Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div className="grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-4">
           {items.map(({ label, desc, image }, i) => (
             <div
               key={i}

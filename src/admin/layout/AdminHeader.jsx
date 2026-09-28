@@ -2,9 +2,6 @@ import React from "react";
 import { HiMenuAlt2 } from "react-icons/hi";
 import { FiExternalLink, FiUser } from "react-icons/fi";
 
-// Top bar of the admin panel. Always visible, regardless of which
-// admin page is active in the <Outlet />. The hamburger button only
-// shows below the `lg` breakpoint, where the sidebar is off-canvas.
 export default function AdminHeader({ company, onMenuClick }) {
   return (
     <header className="h-16 bg-[#0e1b3d] text-white flex items-center justify-between px-4 sm:px-6 shrink-0 z-40">

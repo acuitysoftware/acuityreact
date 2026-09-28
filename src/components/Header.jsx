@@ -31,7 +31,7 @@ export default function Header({ menu = DEFAULT_MENU, company = DEFAULT_COMPANY 
 
   return (
     <header
-      className="sticky top-0 z-40 w-full font-body shadow-md px-10"
+      className="sticky top-0 z-40 w-full font-body shadow-md px-4 sm:px-6 lg:px-10"
       style={{ backgroundColor: "black" }}
     >
       {/* ── Main bar ───────────────────────────────────────── */}

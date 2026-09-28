@@ -56,7 +56,7 @@ export default function Testimonials() {
   const next = () => setActive((p) => (p === items.length - 1 ? 0 : p + 1));
 
   return (
-    <section className="w-full text-white px-10 py-10 bg-body font-body relative overflow-hidden">
+    <section className="w-full text-white px-4 sm:px-6 lg:px-10 py-8 lg:py-10 bg-body font-body relative overflow-hidden">
       {/* Background glow */}
       <div
         className="pointer-events-none absolute inset-0 opacity-10"
@@ -126,8 +126,8 @@ export default function Testimonials() {
             return (
               <div className="bg-white text-body rounded-2xl p-6 shadow relative">
                 <MdFormatQuote className="text-4xl text-secondary/20 absolute top-4 right-4" />
-                <Stars count={rating} />
                 <p className="text-sm text-body/75 leading-relaxed italic mb-5">"{quote}"</p>
+                <Stars count={rating} />
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center text-white font-heading font-bold text-sm shrink-0">
                     {avatar}

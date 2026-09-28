@@ -29,14 +29,14 @@ export default function CTA() {
   const { eyebrow, title, subtitle, phone, email, highlights } = CTA_DATA;
 
   return (
-    <section className="w-full bg-white px-10 py-14 font-body">
+    <section className="w-full bg-white px-4 sm:px-6 lg:px-10 py-8 lg:py-14 font-body">
       <div className="w-full grid lg:grid-cols-2 gap-10 lg:gap-16 2xl:gap-20 items-start">
         
         {/* ── Left: copy & contact info ── */}
         <div>
           <Eyebrow>{eyebrow}</Eyebrow>
           
-          <h2 className="text-3xl md:text-4xl 3xl:text-6xl font-heading font-bold text-primary mb-4 leading-tight">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl 3xl:text-6xl font-heading font-bold text-primary mb-4 leading-tight">
             {title}
           </h2>
           
@@ -45,7 +45,7 @@ export default function CTA() {
           </p>
 
           {/* Highlight blocks - 2x2 grid with React Icons */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 2xl:gap-5 3xl:gap-8 mb-10 max-w-lg 2xl:max-w-2xl 3xl:max-w-none 3xl:min-h-[480px] 3xl:grid-rows-2">
+          <div className="grid grid-cols-2 gap-3 sm:gap-4 2xl:gap-5 3xl:gap-8 mb-10 max-w-lg 2xl:max-w-2xl 3xl:max-w-none 3xl:min-h-[480px] 3xl:grid-rows-2">
             {highlights.map(({ label, icon: Icon }, i) => (
               <div
                 key={i}

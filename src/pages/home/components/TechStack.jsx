@@ -27,13 +27,13 @@ export default function TechStack() {
   const { eyebrow, title, viewAllLink, items } = TECHSTACK_DATA;
 
   return (
-    <section className="w-full bg-white px-10 py-8 font-body">
+    <section className="w-full bg-white px-4 sm:px-6 lg:px-10 py-8 font-body">
       <div className="w-full">
         {/* Header row */}
         <div className="flex items-end justify-between mb-6">
           <div>
             <Eyebrow>{eyebrow}</Eyebrow>
-            <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold text-primary">
               {title}
             </h2>
           </div>

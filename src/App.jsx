@@ -20,7 +20,7 @@ import CmsSettings from "./admin/pages/CmsSettings";
 import HomeSettings from "./admin/pages/HomeSettings";
 import HeaderManagement from "./admin/pages/menu-settings/HeaderManagement";
 import FooterManagement from "./admin/pages/menu-settings/FooterManagement";
-import AdminPagePlaceholder from "./admin/AdminPagePlaceholder";
+import ChangePassword from "./admin/pages/ChangePassword";
 import { DEFAULT_MENU, DEFAULT_COMPANY, DEFAULT_SECTIONS } from "./data/defaultData";
 
 const STORAGE_KEY = "acuity_site_config";
@@ -102,7 +102,7 @@ export default function App() {
           <Route path="home-settings" element={<HomeSettings sections={sections} save={save} />} />
           <Route path="menu-settings/header" element={<HeaderManagement menu={menu} save={save} />} />
           <Route path="menu-settings/footer" element={<FooterManagement company={company} save={save} />} />
-          <Route path="change-password" element={<AdminPagePlaceholder title="Change Password" description="Update your administrator password." />} />
+          <Route path="change-password" element={<ChangePassword />} />
         </Route>
       </Routes>
     </BrowserRouter>

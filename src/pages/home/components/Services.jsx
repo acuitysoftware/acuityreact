@@ -35,13 +35,13 @@ export default function Services() {
   const { eyebrow, title, subtitle, viewAllLink, items } = SERVICES_DATA;
 
   return (
-    <section className="w-full bg-white px-10 py-8 font-body">
+    <section className="w-full bg-white px-4 sm:px-6 lg:px-10 py-8 font-body">
       <div className="w-full">
         {/* Header row */}
         <div className="flex items-end justify-between mb-1">
           <div>
             <Eyebrow>{eyebrow}</Eyebrow>
-            <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold text-primary">
               {title}
             </h2>
           </div>
@@ -52,11 +52,11 @@ export default function Services() {
         <p className="text-body/60 text-base mb-6 max-w-2xl">{subtitle}</p>
 
         {/* Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div className="grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-4">
           {items.map(({ icon: Icon, title: t, desc, color, iconColor }, i) => (
             <div
               key={i}
-              className="relative flex flex-row gap-4 2xl:gap-5 3xl:gap-8 min-h-[160px] 2xl:min-h-[190px] 3xl:min-h-[340px] h-full border border-primary/10 rounded-xl p-5 2xl:p-6 3xl:p-9 bg-white hover:shadow-lg hover:border-secondary/30 hover:-translate-y-1 transition-all group cursor-default shadow-md shadow-gray-500"
+              className="relative flex flex-col lg:flex-row gap-4 2xl:gap-5 3xl:gap-8 min-h-0 lg:min-h-[160px] 2xl:min-h-[190px] 3xl:min-h-[340px] h-full border border-primary/10 rounded-xl p-5 2xl:p-6 3xl:p-9 bg-white hover:shadow-lg hover:border-secondary/30 hover:-translate-y-1 transition-all group cursor-default shadow-md shadow-gray-500"
             >
               {/* Icon container - added self-start so it doesn't stretch */}
               <div className={`w-14 h-14 2xl:w-16 2xl:h-16 3xl:w-20 3xl:h-20 rounded-xl flex items-center justify-center shrink-0 self-start ${color}`}>

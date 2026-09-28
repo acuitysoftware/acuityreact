@@ -23,11 +23,11 @@ export default function Process() {
   const { eyebrow, title, steps } = PROCESS_DATA;
 
   return (
-    <section className="w-full bg-white px-10 py-14 font-body">
+    <section className="w-full bg-white px-4 sm:px-6 lg:px-10 py-8 lg:py-14 font-body">
       <div className="w-full">
         <div className="mb-8">
           <Eyebrow>{eyebrow}</Eyebrow>
-          <h2 className="text-3xl md:text-4xl font-heading font-extrabold text-primary">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-extrabold text-primary">
             {title}
           </h2>
         </div>
@@ -36,7 +36,7 @@ export default function Process() {
           CSS Grid strictly enforces the layout: 
           [Card 1] [Arrow] [Card 2] [Arrow] [Card 3] [Arrow] [Card 4] 
         */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1fr_auto_1fr_auto_1fr_auto_1fr] gap-y-10 lg:gap-x-4 2xl:gap-x-6 3xl:gap-x-8 items-start">
+        <div className="grid grid-cols-2 lg:grid-cols-[1fr_auto_1fr_auto_1fr_auto_1fr] gap-x-5 gap-y-8 lg:gap-x-4 2xl:gap-x-6 3xl:gap-x-8 items-start">
           {steps.map(({ num, icon: Icon, title: t, desc }, i) => (
             <React.Fragment key={i}>
               {/* Arrow connector */}

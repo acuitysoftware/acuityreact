@@ -39,12 +39,12 @@ export default function Clients() {
   const { eyebrow, title, viewAllLink, items } = CLIENTS_DATA;
 
   return (
-    <section className="w-full bg-surface px-10 py-8 font-body">
+    <section className="w-full bg-surface px-4 sm:px-6 lg:px-10 py-8 font-body">
       <div className="w-full">
         <div className="flex items-end justify-between mb-6">
           <div>
             <Eyebrow>{eyebrow}</Eyebrow>
-            <h2 className="text-3xl md:text-4xl 3xl:text-5xl font-heading font-bold text-primary">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl 3xl:text-5xl font-heading font-bold text-primary">
               {title}
             </h2>
           </div>
