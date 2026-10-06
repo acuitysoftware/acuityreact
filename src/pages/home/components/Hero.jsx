@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 
 export default function Hero() {
   const videoRef = useRef(null);
-  const [playing, setPlaying] = useState(true);
+  const [playing, setPlaying] = useState(false);
 
   function togglePlay() {
     const video = videoRef.current;
@@ -23,6 +23,7 @@ export default function Hero() {
         ref={videoRef}
         src="/assets/videos/acuity-software.mp4"
         autoPlay
+        muted
         loop
         playsInline
         onPlay={() => setPlaying(true)}
