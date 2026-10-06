@@ -21,9 +21,8 @@ export default function Hero() {
     >
       <video
         ref={videoRef}
-        src="/assets/videos/acuity.mp4"
+        src="/assets/videos/acuity-software.mp4"
         autoPlay
-        muted
         loop
         playsInline
         onPlay={() => setPlaying(true)}
