@@ -1,30 +1,58 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Eyebrow from "./Eyebrow";
+import { getTechnologiesList } from "../../../api/home/home";
 
 // --- Section data (edit here to update the TechStack section) ----------------
 const TECHSTACK_DATA = {
   eyebrow: "OUR TECHNOLOGIES",
   title: "Technologies We Work With",
   viewAllLink: "/services",
-  items: [
-    { name: "Laravel", icon: "/assets/icons/laravel.png" },
-    { name: "React JS", icon: "/assets/icons/react.png" },
-    { name: "Node.js", icon: "/assets/icons/node.png" },
-    { name: "WordPress", icon: "/assets/icons/word-press.png" },
-    { name: "Shopify", icon: "/assets/icons/shopify.png" },
-    { name: "Flutter", icon: "/assets/icons/flutter.png" },
-    { name: "Firebase", icon: "/assets/icons/firebase.jpg" },
-    { name: "AWS", icon: "/assets/icons/aws.png" },
-    { name: "Google Cloud", icon: "/assets/icons/google-cloud.jpg" },
-    { name: "MySQL", icon: "/assets/icons/mysql.png" },
-    { name: "Docker", icon: "/assets/icons/docker.png" },
-    { name: "Kubernetes", icon: "/assets/icons/kubernetes.png" },
-  ],
 };
 
 // --- Component ----------------------------------------------------------------
 export default function TechStack() {
-  const { eyebrow, title, viewAllLink, items } = TECHSTACK_DATA;
+  const { eyebrow, title, viewAllLink } = TECHSTACK_DATA;
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState(false);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    async function loadTechstack() {
+      try {
+        const response = await getTechnologiesList();
+        const technologies = Array.isArray(response)
+          ? response
+          : Array.isArray(response?.data)
+            ? response.data
+            : Array.isArray(response?.data?.data)
+              ? response.data.data
+              : null;
+
+        if (!technologies) {
+          throw new Error("Unexpected technologies response");
+        }
+
+        if (isMounted) {
+          setItems(technologies);
+        }
+      } catch {
+        if (isMounted) {
+          setLoadError(true);
+        }
+      } finally {
+        if (isMounted) {
+          setLoading(false);
+        }
+      }
+    }
+
+    loadTechstack();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   return (
     <section className="w-full bg-white px-4 sm:px-6 lg:px-10 py-8 font-body">
@@ -44,23 +72,28 @@ export default function TechStack() {
 
         {/* Grid of tech logos */}
         <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4">
-          {items.map(({ name, icon }, i) => (
+          {items.map((technology, i) => (
             <div
-              key={i}
+              key={technology.id ?? technology.image_path ?? i}
               className="flex min-h-[132px] 2xl:min-h-[160px] 3xl:min-h-[240px] flex-col items-center justify-center gap-2 2xl:gap-3 3xl:gap-5 rounded-xl border border-primary/10 bg-surface hover:border-secondary hover:shadow-md hover:bg-secondary/5 transition-all p-4 2xl:p-5 3xl:p-8 group cursor-default"
             >
-              {/* Uses the specific icon path from the data object */}
               <img
-                src={icon}
-                alt={name}
+                src={technology.image_path}
+                alt={technology.title ?? ""}
                 className="h-12 w-12 2xl:h-14 2xl:w-14 3xl:h-20 3xl:w-20 object-contain"
               />
-              <span className="text-sm 2xl:text-base 3xl:text-2xl font-semibold text-primary text-center">
-                {name}
-              </span>
             </div>
           ))}
         </div>
+
+        {!loading && !loadError && items.length === 0 && (
+          <p className="mt-4 text-center text-sm text-body/60">No technologies to display.</p>
+        )}
+        {loadError && (
+          <p role="alert" className="mt-4 text-center text-sm text-body/60">
+            Unable to load technologies.
+          </p>
+        )}
 
         <div className="mt-5 text-center sm:hidden">
           <a href={viewAllLink} className="text-sm font-semibold text-accent hover:underline">View All Technologies ?</a>

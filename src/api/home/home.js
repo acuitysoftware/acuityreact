@@ -41,3 +41,41 @@ export async function getServicesList() {
         throw error;
     }
 }
+
+export async function getSolutionsList() {
+    try {
+        const response = await apiClient.post("/api/our-solutions/list",{
+            headers: {
+                Accept: "application/json",
+            },
+        });
+
+        if (response.data && response.data.status === false) {
+            throw new Error(response.data.message || "Failed to fetch solutions list");
+        }
+
+        return response.data;
+    } catch (error) {
+        console.error("Get Solutions List API Error:", getErrorMessage(error));
+        throw error;
+    }
+}
+
+export async function getTechnologiesList() {
+    try {
+        const response = await apiClient.post("/api/technology/list",{
+            headers: {
+                Accept: "application/json",
+            },
+        });
+
+        if (response.data && response.data.status === false) {
+            throw new Error(response.data.message || "Failed to fetch technologies list");
+        }
+
+        return response.data;
+    } catch (error) {
+        console.error("Get Technologies List API Error:", getErrorMessage(error));
+        throw error;
+    }
+}

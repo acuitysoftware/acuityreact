@@ -1,26 +1,58 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Eyebrow from "./Eyebrow";
+import { getSolutionsList } from "../../../api/home/home";
 
 // ─── Section data (edit here to update the Solutions section) ─────────────────
 const SOLUTIONS_DATA = {
   eyebrow: "OUR SOLUTIONS",
   title: "Our Solutions",
   viewAllLink: "/services",
-  items: [
-    { label: "Web Solutions", desc: "See how modern websites can transform your digital sales and reach.", image: "/assets/images/web-solution.jpg" },
-    { label: "Mobile App Solutions", desc: "Bespoke iOS & Android apps that engage and retain your customers.", image: "/assets/images/mobile-solution.jpg" },
-    { label: "Cloud & Infrastructure", desc: "Scalable cloud solutions that grow with your business needs.", image: "/assets/images/cloud.jpg" },
-    { label: "AI & Automation", desc: "Intelligent solutions to automate business processes at scale.", image: "/assets/images/ai-solution.jpg" },
-    { label: "E-commerce Solutions", desc: "Complete and secure payment & shopping experiences.", image: "/assets/images/ecommerce.jpg" },
-    { label: "Digital Marketing Solutions", desc: "SEO, ads and content marketing to boost your online reach.", image: "/assets/images/digital-market.jpg" },
-    { label: "Custom Software Solutions", desc: "Unique software built to tackle your exact challenges.", image: "/assets/images/software-solution.jpg" },
-    { label: "IT Support & Consulting", desc: "Ongoing guidance and expert technical support for growth.", image: "/assets/images/it-support.jpg" },
-  ],
 };
 
 // ─── Component ────────────────────────────────────────────────────────────────
 export default function Solutions() {
-  const { eyebrow, title, viewAllLink, items } = SOLUTIONS_DATA;
+  const { eyebrow, title, viewAllLink } = SOLUTIONS_DATA;
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState(false);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    async function loadSolutions() {
+      try {
+        const response = await getSolutionsList();
+        const solutions = Array.isArray(response)
+          ? response
+          : Array.isArray(response?.data)
+            ? response.data
+            : Array.isArray(response?.data?.data)
+              ? response.data.data
+              : null;
+
+        if (!solutions) {
+          throw new Error("Unexpected solutions response");
+        }
+
+        if (isMounted) {
+          setItems(solutions);
+        }
+      } catch {
+        if (isMounted) {
+          setLoadError(true);
+        }
+      } finally {
+        if (isMounted) {
+          setLoading(false);
+        }
+      }
+    }
+
+    loadSolutions();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   return (
     <section className="w-full bg-surface px-4 sm:px-6 lg:px-10 py-8 font-body">
@@ -40,18 +72,17 @@ export default function Solutions() {
 
         {/* Grid */}
         <div className="grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-4">
-          {items.map(({ label, desc, image }, i) => (
+          {items.map((solution, i) => (
             <div
-              key={i}
+              key={solution.id ?? solution.image_path ?? i}
               className="overflow-hidden rounded-xl border border-primary/10 bg-white shadow-sm transition-all hover:-translate-y-1 hover:shadow-md hover:border-secondary/40 group"
             >
-              {/* Updated src to use the dynamic image property */}
-              <img src={image} alt={label} className="h-36 2xl:h-44 3xl:h-64 w-full object-cover" />
+              <img src={solution.image_path} alt={solution.title ?? ""} className="h-36 2xl:h-44 3xl:h-64 w-full object-cover" />
               <div className="p-4 2xl:p-5 3xl:p-8">
                 <h3 className="font-heading font-semibold text-base 2xl:text-lg 3xl:text-2xl text-primary group-hover:text-secondary transition-colors leading-snug mb-1">
-                  {label}
+                  {solution.title}
                 </h3>
-                <p className="text-sm 2xl:text-base 3xl:text-xl text-body/60 leading-relaxed mb-2">{desc}</p>
+                <p className="text-sm 2xl:text-base 3xl:text-xl text-body/60 leading-relaxed mb-2">{solution.short_description}</p>
                 <a href={viewAllLink} className="text-sm font-semibold text-accent cursor-pointer hover:underline block">
                   Learn More →
                 </a>
@@ -59,6 +90,15 @@ export default function Solutions() {
             </div>
           ))}
         </div>
+
+        {!loading && !loadError && items.length === 0 && (
+          <p className="mt-4 text-center text-sm text-body/60">No solutions to display.</p>
+        )}
+        {loadError && (
+          <p role="alert" className="mt-4 text-center text-sm text-body/60">
+            Unable to load solutions.
+          </p>
+        )}
 
         <div className="mt-5 text-center sm:hidden">
           <a href={viewAllLink} className="text-sm font-semibold text-accent hover:underline">Explore All Solutions →</a>
