@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Eyebrow from "./Eyebrow";
 import {
   MdComputer,
@@ -11,6 +11,7 @@ import {
   MdSupportAgent,
   MdArrowOutward, // Added arrow icon
 } from "react-icons/md";
+import { getServicesList } from "../../../api/home/home";
 
 // ─── Section data (edit here to update the Services section) ─────────────────
 const SERVICES_DATA = {
@@ -33,6 +34,19 @@ const SERVICES_DATA = {
 // ─── Component ────────────────────────────────────────────────────────────────
 export default function Services() {
   const { eyebrow, title, subtitle, viewAllLink, items } = SERVICES_DATA;
+
+  useEffect(() => {
+    async function loadServices() {
+      try {
+        const response = await getServicesList();
+        console.log(response);
+      } catch (error) {
+        console.error("Failed to load services:", error);
+      }
+    }
+
+    loadServices();
+  }, []);
 
   return (
     <section className="w-full bg-white px-4 sm:px-6 lg:px-10 py-8 font-body">
