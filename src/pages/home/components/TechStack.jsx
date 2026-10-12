@@ -79,9 +79,12 @@ export default function TechStack() {
             >
               <img
                 src={technology.image_path}
-                alt={technology.title ?? ""}
+                alt={technology.name ?? ""}
                 className="h-12 w-12 2xl:h-14 2xl:w-14 3xl:h-20 3xl:w-20 object-contain"
               />
+              <span className="text-sm 2xl:text-base 3xl:text-2xl font-semibold text-primary text-center">
+                {technology.name}
+              </span>
             </div>
           ))}
         </div>

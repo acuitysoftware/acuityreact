@@ -1,38 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Eyebrow from "./Eyebrow";
 import { MdFormatQuote, MdChevronLeft, MdChevronRight } from "react-icons/md";
+import { getTestimonialsList } from "../../../api/home/home";
 
 // ─── Section data (edit here to update the Testimonials section) ─────────────
 const TESTIMONIALS_DATA = {
   eyebrow: "CLIENT REVIEWS",
   title: "What Our Clients Say",
-  items: [
-    {
-      name: "Rajesh Das",
-      role: "Owner, Ali's Pizzeria",
-      quote:
-        "Acuity delivered our website on time with excellent support. Highly recommended! The team is professional and always available.",
-      rating: 5,
-      avatar: "RD",
-    },
-    {
-      name: "Priya Sharma",
-      role: "CEO, Pink & Purple",
-      quote:
-        "Excellent team, great communication and quality work. Our e-commerce store has seen a massive boost in sales since launch.",
-      rating: 5,
-      avatar: "PS",
-    },
-    {
-      name: "Amit Verma",
-      role: "Director, NexOrdr",
-      quote:
-        "Professional and reliable. They understand business needs and deliver the best solutions. Long-term partners for us.",
-      rating: 5,
-      avatar: "AV",
-    },
-  ],
 };
+
+const getName = (item) => item.name ?? item.client_name ?? item.title ?? "";
+const getRole = (item) => item.designation ?? item.role ?? item.position ?? "";
+const getQuote = (item) => item.description ?? item.quote ?? item.review ?? item.message ?? item.short_description ?? "";
+const getAvatar = (item) => item.avatar ?? getName(item).split(/\s+/).map((part) => part[0]).join("").slice(0, 2);
 
 // ─── Star renderer ────────────────────────────────────────────────────────────
 function Stars({ count }) {
@@ -49,8 +29,49 @@ function Stars({ count }) {
 
 // ─── Component ────────────────────────────────────────────────────────────────
 export default function Testimonials() {
-  const { eyebrow, title, items } = TESTIMONIALS_DATA;
+  const { eyebrow, title } = TESTIMONIALS_DATA;
   const [active, setActive] = useState(0);
+
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState(false);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    async function loadTestimonialsList() {
+      try {
+        const response = await getTestimonialsList();
+        const payload = response?.data?.data ?? response?.data ?? response;
+        const testimonials = Array.isArray(payload)
+          ? payload
+          : payload && typeof payload === "object" && (payload.id || payload.name)
+            ? [payload]
+            : null;
+
+        if (!testimonials) {
+          throw new Error("Unexpected testimonials response");
+        }
+
+        if (isMounted) {
+          setItems(testimonials);
+        }
+      } catch {
+        if (isMounted) {
+          setLoadError(true);
+        }
+      } finally {
+        if (isMounted) {
+          setLoading(false);
+        }
+      }
+    }
+
+    loadTestimonialsList();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   const prev = () => setActive((p) => (p === 0 ? items.length - 1 : p - 1));
   const next = () => setActive((p) => (p === items.length - 1 ? 0 : p + 1));
@@ -79,6 +100,7 @@ export default function Testimonials() {
           <div className="flex gap-2">
             <button
               onClick={prev}
+              disabled={items.length < 2}
               aria-label="Previous"
               className="w-9 h-9 rounded-full border border-white/20 bg-white/10 flex items-center justify-center hover:bg-secondary/30 transition-colors"
             >
@@ -86,6 +108,7 @@ export default function Testimonials() {
             </button>
             <button
               onClick={next}
+              disabled={items.length < 2}
               aria-label="Next"
               className="w-9 h-9 rounded-full border border-white/20 bg-white/10 flex items-center justify-center hover:bg-secondary/30 transition-colors"
             >
@@ -96,24 +119,27 @@ export default function Testimonials() {
 
         {/* Cards — all three visible on desktop, single carousel on mobile */}
         <div className="hidden md:grid md:grid-cols-3 gap-5">
-          {items.map(({ name, role, quote, rating, avatar }, i) => (
+          {items.map((item, i) => (
             <div
-              key={i}
-              className={`flex flex-col bg-white text-body rounded-2xl p-6 2xl:p-8 3xl:p-12 min-h-[240px] 2xl:min-h-[280px] 3xl:min-h-[420px] shadow-sm hover:shadow-lg transition-all relative ${
-                i === active ? "ring-2 ring-secondary ring-offset-2 ring-offset-primary" : ""
-              }`}
-            >          
-              <p className="text-sm 2xl:text-base 3xl:text-2xl text-body/75 leading-relaxed italic mb-5 3xl:mb-10">"{quote}"</p>
-              <Stars count={rating} />
+              key={item.id ?? i}
+              className={`flex flex-col bg-white text-body rounded-2xl p-6 2xl:p-8 3xl:p-12 min-h-[240px] 2xl:min-h-[280px] 3xl:min-h-[420px] shadow-sm hover:shadow-lg transition-all relative ${i === active ? "ring-2 ring-secondary ring-offset-2 ring-offset-primary" : ""
+                }`}
+            >
+              <p className="text-sm 2xl:text-base 3xl:text-2xl text-body/75 leading-relaxed italic mb-5 3xl:mb-10">"{getQuote(item)}"</p>
+              <Stars count={Number(item.rating) || 5} />
               <div className="flex items-center gap-3 mt-auto">
-                <div className="w-10 h-10 2xl:w-12 2xl:h-12 rounded-full bg-secondary flex items-center justify-center text-white font-heading font-bold text-sm 2xl:text-base shrink-0">
-                  {avatar}
-                </div>
+                {item.image_path ? (
+                  <img src={item.image_path} alt={getName(item)} className="w-10 h-10 2xl:w-12 2xl:h-12 rounded-full object-cover shrink-0" />
+                ) : (
+                  <div className="w-10 h-10 2xl:w-12 2xl:h-12 rounded-full bg-secondary flex items-center justify-center text-white font-heading font-bold text-sm 2xl:text-base shrink-0">
+                    {getAvatar(item)}
+                  </div>
+                )}
                 <div>
-                  <div className="font-heading font-semibold text-sm 2xl:text-base 3xl:text-2xl text-primary">{name}</div>
-                  <div className="text-[11px] 2xl:text-xs 3xl:text-lg text-body/50">{role}</div>
+                  <div className="font-heading font-semibold text-sm 2xl:text-base 3xl:text-2xl text-primary">{getName(item)}</div>
+                  <div className="text-[11px] 2xl:text-xs 3xl:text-lg text-body/50">{getRole(item)}</div>
                 </div>
-                <MdFormatQuote className="text-4xl text-secondary/20 absolute bottom-4 right-4" />   
+                <MdFormatQuote className="text-4xl text-secondary/20 absolute bottom-4 right-4" />
               </div>
             </div>
           ))}
@@ -121,20 +147,24 @@ export default function Testimonials() {
 
         {/* Mobile single card */}
         <div className="md:hidden">
-          {(() => {
-            const { name, role, quote, rating, avatar } = items[active];
+          {items.length > 0 && (() => {
+            const item = items[active];
             return (
               <div className="bg-white text-body rounded-2xl p-6 shadow relative">
                 <MdFormatQuote className="text-4xl text-secondary/20 absolute top-4 right-4" />
-                <p className="text-sm text-body/75 leading-relaxed italic mb-5">"{quote}"</p>
-                <Stars count={rating} />
+                <p className="text-sm text-body/75 leading-relaxed italic mb-5">"{getQuote(item)}"</p>
+                <Stars count={Number(item.rating) || 5} />
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center text-white font-heading font-bold text-sm shrink-0">
-                    {avatar}
-                  </div>
+                  {item.image_path ? (
+                    <img src={item.image_path} alt={getName(item)} className="w-10 h-10 rounded-full object-cover shrink-0" />
+                  ) : (
+                    <div className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center text-white font-heading font-bold text-sm shrink-0">
+                      {getAvatar(item)}
+                    </div>
+                  )}
                   <div>
-                    <div className="font-heading font-semibold text-sm text-primary">{name}</div>
-                    <div className="text-[11px] text-body/50">{role}</div>
+                    <div className="font-heading font-semibold text-sm text-primary">{getName(item)}</div>
+                    <div className="text-[11px] text-body/50">{getRole(item)}</div>
                   </div>
                 </div>
               </div>
@@ -143,17 +173,25 @@ export default function Testimonials() {
 
           {/* Dots */}
           <div className="flex justify-center gap-2 mt-5">
-            {items.map((_, i) => (
+            {items.map((item, i) => (
               <button
-                key={i}
+                key={item.id ?? i}
                 onClick={() => setActive(i)}
-                className={`w-2 h-2 rounded-full transition-colors ${
-                  i === active ? "bg-secondary" : "bg-white/30"
-                }`}
+                className={`w-2 h-2 rounded-full transition-colors ${i === active ? "bg-secondary" : "bg-white/30"
+                  }`}
               />
             ))}
           </div>
         </div>
+
+        {!loading && !loadError && items.length === 0 && (
+          <p className="mt-4 text-center text-sm text-white/70">No testimonials to display.</p>
+        )}
+        {loadError && (
+          <p role="alert" className="mt-4 text-center text-sm text-white/70">
+            Unable to load testimonials.
+          </p>
+        )}
       </div>
     </section>
   );

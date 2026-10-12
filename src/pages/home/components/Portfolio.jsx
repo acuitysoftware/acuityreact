@@ -1,23 +1,59 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Eyebrow from "./Eyebrow";
+import { getProjectsList } from "../../../api/home/home";
+
 
 // ─── Section data (edit here to update the Portfolio section) ────────────────
 const PORTFOLIO_DATA = {
   eyebrow: "OUR WORK",
   title: "Featured Projects",
   viewAllLink: "/portfolio",
-  items: [
-    { label: "Restaurant Ordering System (NexOrdr)", category: "Web App" },
-    { label: "E-commerce Website (Pink and Purple)", category: "E-commerce" },
-    { label: "Corporate Website (Acuity)", category: "Website" },
-    { label: "Pizzeria Website (Ali's Pizzeria)", category: "Website" },
-    { label: "Custom Web Application", category: "Custom Software" },
-  ],
 };
 
 // ─── Component ────────────────────────────────────────────────────────────────
 export default function Portfolio() {
-  const { eyebrow, title, viewAllLink, items } = PORTFOLIO_DATA;
+  const { eyebrow, title, viewAllLink } = PORTFOLIO_DATA;
+
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState(false);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    async function loadProjects() {
+      try {
+        const response = await getProjectsList();
+        const projects = Array.isArray(response)
+          ? response
+          : Array.isArray(response?.data)
+            ? response.data
+            : Array.isArray(response?.data?.data)
+              ? response.data.data
+              : null;
+        if (!projects) {
+          throw new Error("Unexpected projects response");
+        }
+
+        if (isMounted) {
+          setItems(projects);
+        }
+      } catch {
+        if (isMounted) {
+          setLoadError(true);
+        }
+      } finally {
+        if (isMounted) {
+          setLoading(false);
+        }
+      }
+    }
+
+    loadProjects();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   return (
     <section className="w-full bg-surface px-4 sm:px-6 lg:px-10 py-8 font-body">
@@ -40,26 +76,35 @@ export default function Portfolio() {
 
         {/* Grid */}
         <div className="grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-3">
-          {items.map(({ label, category }, i) => (
+          {items.map((project, i) => (
             <div
-              key={i}
+              key={project.id ?? project.image_path ?? i}
               className="overflow-hidden rounded-xl border border-primary/10 bg-white shadow-sm hover:shadow-md hover:border-secondary/40 hover:-translate-y-1 transition-all group"
             >
               <div className="relative overflow-hidden">
                 <img
-                  src="/assets/images/feature-project-sample.jpg"
-                  alt={label}
+                  src={project.image_path}
+                  alt={project.title ?? ""}
                   className="h-48 2xl:h-56 3xl:h-[360px] w-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
               </div>
               <div className="p-4 2xl:p-5 3xl:p-8 flex items-center justify-between">
                 <span className="text-base 2xl:text-lg 3xl:text-2xl font-heading font-semibold text-primary group-hover:text-secondary transition-colors leading-snug">
-                  {label}
+                  {project.title}
                 </span>
               </div>
             </div>
           ))}
         </div>
+
+        {!loading && !loadError && items.length === 0 && (
+          <p className="mt-4 text-center text-sm text-body/60">No projects to display.</p>
+        )}
+        {loadError && (
+          <p role="alert" className="mt-4 text-center text-sm text-body/60">
+            Unable to load projects.
+          </p>
+        )}
 
         {/* Mobile link */}
         <div className="mt-6 text-center sm:hidden">

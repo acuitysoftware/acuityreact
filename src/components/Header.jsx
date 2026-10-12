@@ -2,31 +2,12 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { HiMenuAlt3, HiX, HiChevronDown } from "react-icons/hi";
 
-const DEFAULT_MENU = [
-  { id: "m1", label: "Home", link: "/", enabled: true },
-  { id: "m2", label: "About Us", link: "/about", enabled: true },
-  {
-    id: "m3",
-    label: "Services",
-    link: "/services",
-    enabled: true,
-    children: [
-      { id: "m3a", label: "Web Development", link: "/services/web" },
-      { id: "m3b", label: "Mobile Apps", link: "/services/mobile" },
-    ],
-  },
-  { id: "m4", label: "Industries", link: "/industries", enabled: true },
-  { id: "m5", label: "Portfolio", link: "/portfolio", enabled: true },
-  { id: "m6", label: "Blog", link: "/blog", enabled: true },
-  { id: "m7", label: "Contact Us", link: "/contact", enabled: true },
-];
-
 const DEFAULT_COMPANY = {
   name: "Acuity Software Services",
   cta: "Get a Free Quote",
 };
 
-export default function Header({ menu = DEFAULT_MENU, company = DEFAULT_COMPANY }) {
+export default function Header({ menu = [], company = DEFAULT_COMPANY, logo }) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -39,7 +20,7 @@ export default function Header({ menu = DEFAULT_MENU, company = DEFAULT_COMPANY 
         {/* ── Logo (left) ─────────────────────────────────── */}
         <Link to="/" className="flex items-center gap-2 shrink-0">
           <img
-            src="/assets/images/white_logo.png"
+            src={logo || "/assets/images/white_logo.png"}
             alt="Acuity logo"
             className="h-12 xl:h-16 2xl:h-20 w-auto object-contain"
           />

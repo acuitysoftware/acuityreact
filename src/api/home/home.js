@@ -1,4 +1,3 @@
-import { toast } from "react-toastify";
 import apiClient from "../webApi.js";
 
 /** Helper to extract response error message */
@@ -44,7 +43,7 @@ export async function getServicesList() {
 
 export async function getSolutionsList() {
     try {
-        const response = await apiClient.post("/api/our-solutions/list",{
+        const response = await apiClient.post("/api/our-solutions/list", {
             headers: {
                 Accept: "application/json",
             },
@@ -63,7 +62,7 @@ export async function getSolutionsList() {
 
 export async function getTechnologiesList() {
     try {
-        const response = await apiClient.post("/api/technology/list",{
+        const response = await apiClient.post("/api/technology/list", {
             headers: {
                 Accept: "application/json",
             },
@@ -78,4 +77,58 @@ export async function getTechnologiesList() {
         console.error("Get Technologies List API Error:", getErrorMessage(error));
         throw error;
     }
+}
+
+export async function getProjectsList() {
+    try {
+        const response = await apiClient.post("/api/projects/list", {
+            headers: {
+                Accept: "application/json",
+            },
+        });
+
+        if (response.data && response.data.status === false) {
+            throw new Error(response.data.message || "Failed to fetch projects list");
+        }
+        return response.data;
+    } catch (error) {
+        console.error("Get Projects List API Error:", getErrorMessage(error));
+        throw error;
+    }
+}
+
+export async function getIndustriesList() {
+    try {
+        const response = await apiClient.post("/api/industry/list", {
+            headers: {
+                Accept: "application/json",
+            },
+        });
+
+        if (response.data && response.data.status === false) {
+            throw new Error(response.data.message || "Failed to fetch industries list");
+        }
+
+        return response.data;
+    } catch (error) {
+        console.error("Get Industries List API Error:", getErrorMessage(error));
+        throw error;
+    }
+}
+
+export async function getTestimonialsList() {
+  try {
+    const response = await apiClient.post("/api/testimonials/list", {
+      headers: {
+        Accept: "application/json",
+      },
+    });
+    if (response.data && response.data.status === false) {
+      throw new Error(response.data.message || "Failed to fetch testimonials list");
+    }
+    return response.data;
+  } catch (error) {
+    console.error("Get Testimonials List API Error:", getErrorMessage(error));
+    throw error;
+  }
 }

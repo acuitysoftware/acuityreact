@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import Eyebrow from "./Eyebrow";
-import { FiPhone, FiMail } from "react-icons/fi";
+import { toast } from "react-toastify";
+import { submitContactForm } from "../../../api/contactus";
 import {
   MdFreeCancellation,
   MdDesignServices,
@@ -26,7 +27,29 @@ const CTA_DATA = {
 
 // ─── Component ────────────────────────────────────────────────────────────────
 export default function CTA() {
-  const { eyebrow, title, subtitle, phone, email, highlights } = CTA_DATA;
+  const { eyebrow, title, subtitle, highlights } = CTA_DATA;
+  const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setForm((current) => ({ ...current, [name]: value }));
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setIsSubmitting(true);
+
+    try {
+      const response = await submitContactForm(form);
+      toast.success(response?.message || "Your quote request has been sent.");
+      setForm({ name: "", email: "", phone: "", message: "" });
+    } catch (error) {
+      toast.error(error.response?.data?.message || error.message || "Unable to send your request. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <section className="w-full bg-white px-4 sm:px-6 lg:px-10 py-8 lg:py-14 font-body">
@@ -87,9 +110,14 @@ export default function CTA() {
         <div className="bg-surface border border-primary/10 rounded-2xl p-6 md:p-8 2xl:p-10 3xl:p-12 shadow-sm">
           <h3 className="text-primary font-heading font-bold text-xl 2xl:text-2xl 3xl:text-4xl mb-5">Get a Free Quote</h3>
           
-          <form className="flex flex-col gap-4" onSubmit={(e) => e.preventDefault()}>
+          <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
             <input 
               type="text" 
+              name="name"
+              value={form.name}
+              onChange={handleChange}
+              autoComplete="name"
+              required
               placeholder="Your Name" 
               className="w-full px-4 py-3 2xl:px-5 2xl:py-4 3xl:px-6 3xl:py-5 rounded-lg border border-primary/10 bg-white text-primary text-sm 2xl:text-base 3xl:text-xl placeholder:text-body/40 focus:outline-none focus:border-accent transition-colors"
             />
@@ -97,17 +125,31 @@ export default function CTA() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <input 
                 type="email" 
+                name="email"
+                value={form.email}
+                onChange={handleChange}
+                autoComplete="email"
+                required
                 placeholder="Your Email" 
                 className="w-full px-4 py-3 2xl:px-5 2xl:py-4 3xl:px-6 3xl:py-5 rounded-lg border border-primary/10 bg-white text-primary text-sm 2xl:text-base 3xl:text-xl placeholder:text-body/40 focus:outline-none focus:border-accent transition-colors"
               />
               <input 
                 type="tel" 
+                name="phone"
+                value={form.phone}
+                onChange={handleChange}
+                autoComplete="tel"
+                required
                 placeholder="Phone Number" 
                 className="w-full px-4 py-3 2xl:px-5 2xl:py-4 3xl:px-6 3xl:py-5 rounded-lg border border-primary/10 bg-white text-primary text-sm 2xl:text-base 3xl:text-xl placeholder:text-body/40 focus:outline-none focus:border-accent transition-colors"
               />
             </div>
             
             <textarea 
+              name="message"
+              value={form.message}
+              onChange={handleChange}
+              required
               placeholder="Tell us about your project" 
               rows="4"
               className="w-full px-4 py-3 2xl:px-5 2xl:py-4 3xl:px-6 3xl:py-5 rounded-lg border border-primary/10 bg-white text-primary text-sm 2xl:text-base 3xl:text-xl placeholder:text-body/40 focus:outline-none focus:border-accent transition-colors resize-none"
@@ -115,9 +157,10 @@ export default function CTA() {
             
             <button 
               type="submit" 
-              className="w-full px-8 py-3.5 2xl:py-4 3xl:py-6 rounded-lg font-semibold text-white bg-accent hover:bg-accent/90 transition-colors shadow-md text-sm 2xl:text-base 3xl:text-xl mt-2"
+              disabled={isSubmitting}
+              className="w-full px-8 py-3.5 2xl:py-4 3xl:py-6 rounded-lg font-semibold text-white bg-accent hover:bg-accent/90 transition-colors shadow-md text-sm 2xl:text-base 3xl:text-xl mt-2 disabled:opacity-60 disabled:cursor-not-allowed"
             >
-              Get a Free Quote →
+              {isSubmitting ? "Sending..." : "Get a Free Quote →"}
             </button>
           </form>
         </div>
